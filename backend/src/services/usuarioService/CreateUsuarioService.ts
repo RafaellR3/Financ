@@ -1,5 +1,5 @@
 import { getCustomRepository } from "typeorm";
-import { UsuarioRepositories } from "../repositories/UsuarioRepositories";
+import { UsuarioRepositories } from "../../repositories/UsuarioRepositories";
 
 interface IUsuarioRequest{
     nome: string;

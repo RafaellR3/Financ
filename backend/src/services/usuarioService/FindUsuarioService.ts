@@ -14,3 +14,13 @@ class RecuperarUsuarioPorNome {
     };
 }
 export { RecuperarUsuarioPorNome }
+
+class RecuperarTodos {
+    async execute() {
+
+        const usuarioRepository = getCustomRepository(UsuarioRepositories);
+        const usuario = await usuarioRepository.find()
+        return usuario;
+    };
+}
+export { RecuperarTodos }

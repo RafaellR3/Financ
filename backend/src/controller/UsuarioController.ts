@@ -11,9 +11,6 @@ class UsuarioController{
         return response.json(usuario);
     }
 
-}
-
-class ListUsurioPorNomeController {
     async RecuperarUsuarioPorNome(request: Request, response: Response) 
     {
       const {nome} = request.body;
@@ -22,9 +19,7 @@ class ListUsurioPorNomeController {
   
       return response.json(usuario);
     }
-  }
 
-  class ListUsuarioTodosController {
     async RecuperarUsuarioTodos(request: Request, response: Response) 
     {
       const recuperarTodos = new RecuperarTodos();
@@ -32,8 +27,6 @@ class ListUsurioPorNomeController {
   
       return response.json(usuario);
     }
-  }
+}
 
-  export {UsuarioController}
-  export { ListUsuarioTodosController };
-  export { ListUsurioPorNomeController };
+ export { UsuarioController }

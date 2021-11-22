@@ -1,25 +1,35 @@
-import { Entity, PrimaryColumn, Column } from "typeorm";
-import { ForeignKeyMetadata } from "typeorm/metadata/ForeignKeyMetadata";
-import { v4 as uuid } from "uuid"
+import { Entity, PrimaryColumn, Column, JoinColumn, ManyToOne } from "typeorm";
+import { Mes } from "../entity/Mes";
+import { v4 as uuid } from "uuid";
+import {TipoMovimento, StatusMovto} from "./enum/Enums";
 
 @Entity("movimento")
 class Movimento {
 
     @PrimaryColumn()
     readonly idmovimento: string;
-    @Column()
+    @JoinColumn({ name: "idmes" })
+    @ManyToOne(() => Mes)
     idmes: string;
     @Column()
     descricao: string;
     @Column("numeric", { precision: 8, scale: 2 })
     valor: number;
-    @Column()
+    @Column({
+        type: "enum",
+        enum: TipoMovimento,
+        default: TipoMovimento.Entrada
+    })
     tipo: number;
     @Column()
     datavencto: Date;
     @Column({ nullable: true })
     datapagto?: Date;
-    @Column()
+    @Column({
+        type: "enum",
+        enum: StatusMovto,
+        default: StatusMovto.Aberto
+    })
     status: number;
 
     constructor() {
@@ -28,7 +38,8 @@ class Movimento {
             this.status = 0;
         }
     }
-}
 
+
+}
 export { Movimento };
 

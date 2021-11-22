@@ -1,5 +1,5 @@
 import { getCustomRepository } from "typeorm";
-import { MovimentoRepositories } from "../repositories/MovimentoRepositories";
+import { MovimentoRepositories } from "../../repositories/MovimentoRepositories";
 
 interface IMovimentoRequest{
     idmes: string;

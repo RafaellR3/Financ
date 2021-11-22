@@ -1,5 +1,5 @@
 import {Request, Response} from "express"
-import {CreateMesService} from "../services/CreateMesService"
+import {CreateMesService} from "../services/mesService/CreateMesService"
 
 class MesController{
     async handle(request: Request, response: Response){

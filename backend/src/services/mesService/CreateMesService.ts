@@ -1,5 +1,5 @@
 import { getCustomRepository } from "typeorm";
-import { MesRepositories } from "../repositories/MesRepositories";
+import { MesRepositories } from "../../repositories/MesRepositories";
 
 interface IMesRequest{
     nome: string;

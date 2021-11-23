@@ -10,7 +10,7 @@ const router = Router();
 
 //Autenticacao
 const autenticacaoUsuarioController = new AutenticacaoUsuarioController();
-router.post("/auth", autenticacaoUsuarioController.handle);
+router.post("/Login", autenticacaoUsuarioController.handle);
 
 router.use(VerificaAutenticacao);
 

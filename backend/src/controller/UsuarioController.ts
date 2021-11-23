@@ -4,10 +4,10 @@ import {RecuperarUsuarioPorNome, RecuperarTodos} from "../services/usuarioServic
 
 class UsuarioController{
     async handle(request: Request, response: Response){
-        const {nome, email, senha} = request.body;
+        const {nome, email, senha, admin} = request.body;
 
         const createUsuarioServico = new CreateUsuarioService();
-        const usuario = await createUsuarioServico.execute({nome, email,senha});
+        const usuario = await createUsuarioServico.execute({nome, email, senha, admin});
         return response.json(usuario);
     }
 

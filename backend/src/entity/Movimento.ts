@@ -8,23 +8,33 @@ class Movimento {
 
     @PrimaryColumn()
     readonly idmovimento: string;
-    @JoinColumn({ name: "idmes" })
-    @ManyToOne(() => Mes)
+
+    @Column()
     idmes: string;
+
+    @JoinColumn({name: "idmes"})
+    @ManyToOne(()=> Mes)
+    mes: Mes;
+
     @Column()
     descricao: string;
+
     @Column("numeric", { precision: 8, scale: 2 })
     valor: number;
+
     @Column({
         type: "enum",
         enum: TipoMovimento,
         default: TipoMovimento.Entrada
     })
     tipo: number;
+
     @Column()
     datavencto: Date;
+
     @Column({ nullable: true })
     datapagto?: Date;
+
     @Column({
         type: "enum",
         enum: StatusMovto,
@@ -38,8 +48,6 @@ class Movimento {
             this.status = 0;
         }
     }
-
-
 }
 export { Movimento };
 

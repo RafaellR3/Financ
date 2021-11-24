@@ -29,6 +29,8 @@ router.post("/mes", mesController.handle);
 //Movimento
 const movimentoController = new MovimentoController();
 router.post("/movimento", movimentoController.handle);
+router.put("/movimento/editar/:id", movimentoController.Editar);
+router.put("/movimento/pagar/:id", movimentoController.Pagar);
 router.get("/movimento/RecuperarTodos", movimentoController.RecuperarMovimentoTodos);
 router.get("/movimento/RecuperarPorMes", movimentoController.RecuperarMovimentoPorMes);
 router.get("/movimento/RecuperarPorTipo", movimentoController.RecuperarMovimentoPorTipo);

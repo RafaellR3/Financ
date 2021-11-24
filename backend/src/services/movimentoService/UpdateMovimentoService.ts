@@ -1,5 +1,4 @@
 import { getCustomRepository } from "typeorm";
-import { Mes } from "../../entity/Mes";
 import { MovimentoRepositories } from "../../repositories/MovimentoRepositories";
 
 interface IMovimentoNovo{
@@ -8,11 +7,15 @@ interface IMovimentoNovo{
     descricao: string;
     valor: number;
     tipo: number;
-    datavencto: Date;
+    datavencto: string;
 }
 
 interface IMovimentoCodigo{
     idmovimento: string;
+}
+
+interface IPagarMovimento{
+    datapagto: string;
 }
 
 class UpdateMovimentoService{
@@ -42,7 +45,7 @@ class UpdateMovimentoService{
         return movimento;
     }
 
-    async pagar({ idmovimento}: IMovimentoCodigo){
+    async pagar({ idmovimento}: IMovimentoCodigo, { datapagto }: IPagarMovimento){
         const movimentoRepository = getCustomRepository(MovimentoRepositories);
     
         const movimento = await movimentoRepository.findOne({
@@ -52,7 +55,22 @@ class UpdateMovimentoService{
         if (!movimento){
             throw new Error(`Não foi possível localizar o movimento de código ${idmovimento}!`);
         }
-        await movimentoRepository.update({idmovimento}, {status: 1, datapagto: Date.now()});
+        await movimentoRepository.update({idmovimento}, {status: 1, datapagto: datapagto});
+
+        return movimento;
+    }    
+    
+    async desfazerPagamento({ idmovimento}: IMovimentoCodigo){
+        const movimentoRepository = getCustomRepository(MovimentoRepositories);
+    
+        const movimento = await movimentoRepository.findOne({
+            idmovimento
+        });
+
+        if (!movimento){
+            throw new Error(`Não foi possível localizar o movimento de código ${idmovimento}!`);
+        }
+        await movimentoRepository.update({idmovimento}, {status: 0});
 
         return movimento;
     }

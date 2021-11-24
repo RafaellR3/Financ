@@ -23,8 +23,17 @@ class MovimentoController {
 
   async Pagar( request: Request, response: Response) {
     const idmovimento = request.params.id
+    const{ datapagto }= request.body
     const updateMovimentoService = new UpdateMovimentoService();
-    const movimento = await updateMovimentoService.pagar({idmovimento});
+    const movimento = await updateMovimentoService.pagar({idmovimento}, {datapagto});
+    
+    return response.json(movimento);
+  }
+
+  async DesfazerPagamento( request: Request, response: Response) {
+    const idmovimento = request.params.id
+    const updateMovimentoService = new UpdateMovimentoService();
+    const movimento = await updateMovimentoService.desfazerPagamento({idmovimento});
     
     return response.json(movimento);
   }

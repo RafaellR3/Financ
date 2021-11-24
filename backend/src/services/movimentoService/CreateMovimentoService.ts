@@ -6,7 +6,7 @@ interface IMovimentoRequest{
     descricao: string;
     valor: number;
     tipo: number;
-    datavencto: Date;
+    datavencto: string;
 }
 
 class CreateMovimentoService{

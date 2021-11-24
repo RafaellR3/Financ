@@ -1,6 +1,11 @@
+import {MesPage} from"types/Mes";
 
+type Props = {
+    page: MesPage;
+    onPageChange: Function;
+}
 
-const Pagination = () => {
+const Pagination = ({page, onPageChange} : Props) => {
     return (
         <div className="row d-flex justify-content-center" >
             <nav>

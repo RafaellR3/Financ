@@ -30,7 +30,7 @@ class Movimento {
     tipo: number;
 
     @Column()
-    datavencto?: Date;
+    datavencto: Date;
 
     @Column({ nullable: true })
     datapagto?: Date;

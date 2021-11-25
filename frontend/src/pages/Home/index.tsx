@@ -1,5 +1,4 @@
 import Footer from "components/Footer";
-import ListaMes from "components/Mes/ListaMes";
 import NavBar from "components/NavBar";
 import { Link } from "react-router-dom";
 
@@ -11,11 +10,8 @@ function Home() {
                 <div className="jumbotron">
                     <h1 className="display-4">Controle financeiro R3</h1>
                     <hr />
-                    <p>.</p>
-                    
                 </div>
-
-                <ListaMes/>
+                <Link className = "btn btn-primary btn-lg" to ="/dashboard"> Acessar o Dashboard</Link>
             </div>
             <Footer/>
         </>

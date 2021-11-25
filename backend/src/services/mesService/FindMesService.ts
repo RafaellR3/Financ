@@ -1,6 +1,5 @@
 import { getCustomRepository } from "typeorm";
 import { MesRepositories } from "../../repositories/MesRepositories";
-import { ILike } from "typeorm";
 
 class RecuperarTodos {
     async execute() {

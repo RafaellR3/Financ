@@ -12,7 +12,7 @@ const router = Router();
 const autenticacaoUsuarioController = new AutenticacaoUsuarioController();
 router.post("/Login", autenticacaoUsuarioController.handle);
 
-router.use(VerificaAutenticacao);
+//router.use(VerificaAutenticacao);
 
 router.get("/VerificaPermissao", VerificaPermissao);
 

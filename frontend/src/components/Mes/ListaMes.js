@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useToDo } from "hooks";
-import BotaoAdicionar from "components/Botoes";
+import AdicionarNovoMes from "components/Botoes";
 
 function ListaMes() {
 
@@ -16,7 +16,7 @@ function ListaMes() {
         <>
             <div className="table-responsive">
                 <table className="table table-dark table-sm  text-center">
-                <BotaoAdicionar/>
+
                     <tbody>
                         {tasks.map(mes => (
                             <tr key={mes.idmes}>
@@ -25,6 +25,11 @@ function ListaMes() {
                                 </td>
                             </tr>
                         ))}
+                        <tr>
+                            <td>
+                                <AdicionarNovoMes />
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

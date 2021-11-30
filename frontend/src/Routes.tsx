@@ -1,6 +1,7 @@
 
 import Home from "pages/Home";
 import Dashboard from "pages/Dashboard";
+import Detalhes from "pages/Detalhes";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 function Routes() {
@@ -12,6 +13,9 @@ function Routes() {
                 </Route>
                 <Route path="/dashboard">
                     <Dashboard/>
+                </Route>
+                <Route path="/detalhes">
+                    <Detalhes/>
                 </Route>
             </Switch>
         </BrowserRouter>

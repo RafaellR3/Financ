@@ -21,15 +21,13 @@ function ListaMes() {
                         {tasks.map(mes => (
                             <tr key={mes.idmes}>
                                 <td className="btn btn-primary btn-lg center" width="200px">
-                                    {mes.nome}
+                                    <a href="/detalhes"> {mes.nome}</a>
                                 </td>
                             </tr>
                         ))}
-                        <tr>
-                            <td>
-                                <AdicionarNovoMes />
-                            </td>
-                        </tr>
+                        <td>
+                            <AdicionarNovoMes />
+                        </td>
                     </tbody>
                 </table>
             </div>

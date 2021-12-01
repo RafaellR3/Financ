@@ -1,7 +1,7 @@
 
 export enum TipoMovimento {
     Entrada = "0",
-    Saída = "1",
+    Saida = "1",
 }
 
 export enum StatusMovto {

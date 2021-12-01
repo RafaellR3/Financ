@@ -27,7 +27,7 @@ class Movimento {
         enum: TipoMovimento,
         default: TipoMovimento.Entrada
     })
-    tipo: number;
+    tipo: TipoMovimento;
 
     @Column()
     datavencto: Date;
@@ -40,12 +40,12 @@ class Movimento {
         enum: StatusMovto,
         default: StatusMovto.Aberto
     })
-    status: number;
+    status: StatusMovto;
 
     constructor() {
         if (!this.idmovimento) {
             this.idmovimento = uuid();
-            this.status = 0;
+            this.status = StatusMovto.Aberto;
         }
     }
 }

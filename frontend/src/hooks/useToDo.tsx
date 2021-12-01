@@ -12,6 +12,13 @@ export const useToDo = () => {
         setTasks(data);
     }, [])
 
+    const getDetalhesMovto = useCallback(async (mes: string) => {
+        const {status, data} = await ToDoService.getMesRecuperarTodos();
+        if (status !== 200 ) throw new Error();
+
+        setTasks(data);
+    }, [])
+
     const postInserirNovoMes = useCallback(async (nome: string) => {
         const {status} = await ToDoService.postInserirNovoMes(nome);
         if (status !== 200 ) throw new Error();
@@ -21,5 +28,6 @@ export const useToDo = () => {
         tasks,
         getMesRecuperarTodos,
         postInserirNovoMes,
+        getDetalhesMovto,
     }
 }

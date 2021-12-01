@@ -1,4 +1,5 @@
 import { getCustomRepository } from "typeorm";
+import { StatusMovto, TipoMovimento } from "../../entity/enum/Enums";
 import { MovimentoRepositories } from "../../repositories/MovimentoRepositories";
 
 interface IMovimentoNovo{
@@ -6,7 +7,7 @@ interface IMovimentoNovo{
     idmes: string;
     descricao: string;
     valor: number;
-    tipo: number;
+    tipo: TipoMovimento;
     datavencto: string;
 }
 
@@ -55,7 +56,7 @@ class UpdateMovimentoService{
         if (!movimento){
             throw new Error(`Não foi possível localizar o movimento de código ${idmovimento}!`);
         }
-        await movimentoRepository.update({idmovimento}, {status: 1, datapagto: datapagto});
+        await movimentoRepository.update({idmovimento}, {status: StatusMovto.pago, datapagto: datapagto});
 
         return movimento;
     }    
@@ -70,7 +71,7 @@ class UpdateMovimentoService{
         if (!movimento){
             throw new Error(`Não foi possível localizar o movimento de código ${idmovimento}!`);
         }
-        await movimentoRepository.update({idmovimento}, {status: 0});
+        await movimentoRepository.update({idmovimento}, {status: StatusMovto.Aberto});
 
         return movimento;
     }

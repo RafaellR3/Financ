@@ -1,15 +1,18 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useToDo } from "hooks";
 import AdicionarNovoMes from "components/Botoes";
 
 function ListaMes() {
 
-    const { tasks, getMesRecuperarTodos } = useToDo();
+    const { meses, getMesRecuperarTodos } = useToDo();
+    const [idmes, setMesNome] = useState('');
 
-    useEffect(() => {
-        getMesRecuperarTodos();
-    }, [getMesRecuperarTodos])
+    const abrirDetalhes ={
+    }
+        useEffect(() => {
+            getMesRecuperarTodos();
+        }, [getMesRecuperarTodos])
 
 
     return (
@@ -18,10 +21,12 @@ function ListaMes() {
                 <table className="table table-dark table-sm  text-center">
 
                     <tbody>
-                        {tasks.map(mes => (
+                        {meses.map(mes => (
                             <tr key={mes.idmes}>
-                                <td className="btn btn-primary btn-lg center" width="200px">
-                                    <a href="/detalhes"> {mes.nome}</a>
+                                <td className="btn btn-primary btn-lg center" width="200px"  >
+                                    <a value={mes.idmes} onChange={(e) => setMesNome(e.target.value)} onClick={abrirDetalhes}>
+                                        {mes.nome}
+                                    </a>
                                 </td>
                             </tr>
                         ))}

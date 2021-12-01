@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { UsuarioRepositories } from "../repositories/UsuarioRepositories";
 import { getCustomRepository } from "typeorm";
-import { Usuario } from "../entity/Usuario"
 
 export async function VerificaPermissao(
   request: Request,

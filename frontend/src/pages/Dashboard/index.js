@@ -1,15 +1,16 @@
+
 import Footer from "components/Footer";
-import ListaMovto from "components/ListaMovto/index";
+import ListaMes from "components/ListaMes";
 import NavBar from "components/NavBar";
 
-function Detalhes() {
+function Dashboard() {
     return (
         <>
             <NavBar/> 
-            <ListaMovto/>
+            <ListaMes/>
             <Footer/>
         </>
     );
 }
 
-export default Detalhes;
+export default Dashboard;

@@ -6,14 +6,10 @@ import AdicionarNovoMes from "components/Botoes";
 function ListaMes() {
 
     const { meses, getMesRecuperarTodos } = useToDo();
-    const [idmes, setMesNome] = useState('');
 
-    const abrirDetalhes ={
-    }
-        useEffect(() => {
-            getMesRecuperarTodos();
-        }, [getMesRecuperarTodos])
-
+    useEffect(() => {
+        getMesRecuperarTodos();
+    }, [getMesRecuperarTodos])
 
     return (
         <>
@@ -24,7 +20,7 @@ function ListaMes() {
                         {meses.map(mes => (
                             <tr key={mes.idmes}>
                                 <td className="btn btn-primary btn-lg center" width="200px"  >
-                                    <a value={mes.idmes} onChange={(e) => setMesNome(e.target.value)} onClick={abrirDetalhes}>
+                                    <a href="/detalhes/">
                                         {mes.nome}
                                     </a>
                                 </td>

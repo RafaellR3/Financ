@@ -2,13 +2,13 @@ import { useCallback, useState } from "react";
 import { useEffect } from "react";
 import { useToDo } from "hooks";
 
-function ListaMovto() {
+function ListaMovto(idMes) {
 
     const { detalhes, getDetalhesMovtos } = useToDo();
 
     useEffect(() => {
-        getDetalhesMovtos();
-    }, [getDetalhesMovtos, ])
+        getDetalhesMovtos(idMes);
+    }, [getDetalhesMovtos, idMes])
 
     return (
         <div className="container">

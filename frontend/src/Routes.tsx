@@ -8,15 +8,9 @@ function Routes() {
     return (
         <BrowserRouter>
             <Switch>
-            <Route path="/" exact>
-                    <Home/>
-                </Route>
-                <Route path="/dashboard">
-                    <Dashboard/>
-                </Route>
-                <Route path="/detalhes">
-                    <Detalhes/>
-                </Route>
+                <Route path="/" exact> <Home /> </Route>
+                <Route path="/dashboard"> <Dashboard /> </Route>
+                <Route path="/detalhes/:id" component={Detalhes}> <Detalhes />  </Route>
             </Switch>
         </BrowserRouter>
     );

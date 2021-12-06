@@ -12,7 +12,7 @@ function Home() {
                     <hr />
                 </div>
                 <Link className = "btn btn-primary btn-lg" to ="/dashboard"> Acessar o Dashboard</Link>
-            </div> */
+            </div> 
             <Footer/>
         </>
     );

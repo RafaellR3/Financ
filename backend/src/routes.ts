@@ -34,6 +34,7 @@ router.put("/movimento/editar/:id", movimentoController.Editar);
 router.put("/movimento/pagar/:id", movimentoController.Pagar);
 router.put("/movimento/desfazerpagamento/:id", movimentoController.DesfazerPagamento);
 router.get("/movimento/RecuperarTodos", movimentoController.RecuperarMovimentoTodos);
+router.get("/movimento/RecuperarMovimentoPorId/:id", movimentoController.RecuperarMovimentoPorId);
 router.get("/movimento/RecuperarPorMes", movimentoController.RecuperarMovimentoPorMes);
 router.get("/movimento/RecuperarPorTipo", movimentoController.RecuperarMovimentoPorTipo);
 router.get("/movimento/RecuperarDetalhesMovto/:idmes", movimentoController.RecuperarDetalhesMovto);

@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
 import { CreateMovimentoService } from "../services/movimentoService/CreateMovimentoService";
 import { UpdateMovimentoService } from "../services/movimentoService/UpdateMovimentoService";
-import { RecuperarTodos, RecuperarMovimentoPorMes, RecuperarMovimentoPorTipo, RecuperarDetalhesMovto } from "../services/movimentoService/FindMovimentoService"
+import { RecuperarTodos, 
+        RecuperarMovimentoPorMes, 
+        RecuperarMovimentoPorTipo, 
+        RecuperarDetalhesMovto,
+        RecuperarMovimentoPorId } from "../services/movimentoService/FindMovimentoService"
 
 class MovimentoController {
   async handle(request: Request, response: Response) {
@@ -36,6 +40,14 @@ class MovimentoController {
     const movimento = await updateMovimentoService.desfazerPagamento({idmovimento});
     
     return response.json(movimento);
+  }
+
+  async RecuperarMovimentoPorId(request: Request, response: Response) {
+    const idmovimento  = request.params.id
+    const recuperarMovimentoPorId = new RecuperarMovimentoPorId();
+    const movimentos = await recuperarMovimentoPorId.execute(idmovimento);
+
+    return response.json(movimentos);
   }
 
   async RecuperarMovimentoPorMes(request: Request, response: Response) {

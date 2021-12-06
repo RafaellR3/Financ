@@ -9,8 +9,8 @@ function Routes() {
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact> <Home /> </Route>
-                <Route path="/dashboard"> <Dashboard /> </Route>
-                <Route path="/detalhes/:id" component={Detalhes}> <Detalhes />  </Route>
+                <Route path="/dashboard" > <Dashboard /> </Route>
+                <Route path="/detalhes/:idMes"  component={Detalhes} > <Detalhes />  </Route>
             </Switch>
         </BrowserRouter>
     );

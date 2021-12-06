@@ -1,14 +1,15 @@
+
 import Footer from "components/Footer";
 import ListaMovto from "components/ListaMovto/index";
 import NavBar from "components/NavBar";
 import { useParams } from "react-router";
 
 function Detalhes() {
-    const { id } = useParams();
+   const {idMes} = useParams();
     return (
         <>
             <NavBar/> 
-            <ListaMovto idMes={id}/>
+            <ListaMovto idMes={idMes}/>
             <Footer/>
         </>
     );

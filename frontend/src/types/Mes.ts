@@ -13,3 +13,7 @@ export type MesPage = {
     numberOfElements?: number;
     empty?: boolean;
 }
+
+export type ListaMeses = {
+    meses?: Mes[];
+}

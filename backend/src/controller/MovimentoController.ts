@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import { CreateMovimentoService } from "../services/movimentoService/CreateMovimentoService";
 import { UpdateMovimentoService } from "../services/movimentoService/UpdateMovimentoService";
+import { DeleteMovimentoService } from "../services/movimentoService/DeleteMovimentoService";
 import { RecuperarTodos, 
-        RecuperarMovimentoPorMes, 
-        RecuperarMovimentoPorTipo, 
-        RecuperarDetalhesMovto,
-        RecuperarMovimentoPorId } from "../services/movimentoService/FindMovimentoService"
+         RecuperarMovimentoPorMes, 
+         RecuperarMovimentoPorTipo, 
+         RecuperarDetalhesMovto,
+         RecuperarMovimentoPorId } from "../services/movimentoService/FindMovimentoService"
 
 class MovimentoController {
   async handle(request: Request, response: Response) {
@@ -21,6 +22,14 @@ class MovimentoController {
     const idmovimento = request.params.id
     const updateMovimentoService = new UpdateMovimentoService();
     const movimento = await updateMovimentoService.execute({ idmovimento, idmes, descricao, valor, tipo, datavencto });
+    
+    return response.json(movimento);
+  }
+
+  async Deletar( request: Request, response: Response) {
+    const idmovimento = request.params.id
+    const deleteMovimentoService = new DeleteMovimentoService();
+    const movimento = await deleteMovimentoService.execute({ idmovimento});
     
     return response.json(movimento);
   }

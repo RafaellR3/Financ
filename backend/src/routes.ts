@@ -31,6 +31,7 @@ router.get("/mes/recuperartodos", mesController.RecuperarTodos);
 const movimentoController = new MovimentoController();
 router.post("/movimento", movimentoController.handle);
 router.put("/movimento/editar/:id", movimentoController.Editar);
+router.put("/movimento/deletar/:id", movimentoController.Deletar);
 router.put("/movimento/pagar/:id", movimentoController.Pagar);
 router.put("/movimento/desfazerpagamento/:id", movimentoController.DesfazerPagamento);
 router.get("/movimento/RecuperarTodos", movimentoController.RecuperarMovimentoTodos);

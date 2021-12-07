@@ -22,7 +22,9 @@ interface IListaDetalhes {
     Entradas: Movimento[];
     Saidas: Movimento[];
 
+    
 }
+
 class RecuperarMovimentoPorId {
     async execute(_idMovimento: string) {
 
@@ -70,7 +72,7 @@ class RecuperarDetalhesMovto {
         const recuperarMovimentoPorMes = new RecuperarMovimentoPorMes();
         const movimentoRepository = getCustomRepository(MovimentoRepositories);
         const movimentos = await movimentoRepository.find({
-            where: { idmes: _idMes }
+            where: { idmes: _idMes },
         })
 
         if (movimentos.length <= 0) {
@@ -79,8 +81,8 @@ class RecuperarDetalhesMovto {
 
         const detalhes = {} as IListaDetalhes;
         detalhes.idmes = _idMes;
-        detalhes.Entradas = (await movimentos).filter(movimento => movimento.tipo === TipoMovimento.Entrada).sort();
-        detalhes.Saidas = (await movimentos).filter(movimento => movimento.tipo === TipoMovimento.Saida).sort();
+        detalhes.Entradas = (await movimentos).filter(movimento => movimento.tipo === TipoMovimento.Entrada).sort((a, b) => 1 - 2)
+        detalhes.Saidas = (await movimentos).filter(movimento => movimento.tipo === TipoMovimento.Saida).sort((a, b) => 1 - 2);
 
         var valoresEntrada = detalhes.Entradas.map(function (movimento) {
             return movimento.valor.toString()

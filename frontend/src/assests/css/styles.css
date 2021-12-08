@@ -5,7 +5,6 @@
 
 html, body {
     height: 100%;
-    font-family: "Ubuntu", sans-serif;
 }
 
 #root {
@@ -39,7 +38,7 @@ html, body {
     font-size: 20px;
 }
 
-.table td{
+.table td {
     font-size: 13px;
 }
 

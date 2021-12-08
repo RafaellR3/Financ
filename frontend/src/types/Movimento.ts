@@ -12,9 +12,9 @@ export type DetalhesMovto = {
 export type Movimento = {
     idmovimento: string;
     descricao: string; 
-    tipo: number;
+    tipo: string;
     valor: number;
-    status: number;
+    status: string;
     DataVencto: string;
     idmes: string;
 }

@@ -1,13 +1,14 @@
 {
     "name": "default",
     "type": "postgres",
-    "host": "localhost",
+    "host": "ec2-52-3-239-135.compute-1.amazonaws.com",
     "port": 5432,
-    "username": "postgres",
-    "password": "1234567",
-    "database": "controlfinancR3",
+    "username": "cbvuofandssacq",
+    "password": "bca349f45264f91bb6b5b9d58033fe65537b5e06259cefcd3d0b4b61fc782afb",
+    "database": "d404gfi5q1jvqm",
     "synchronize": true,
     "logging": false,
+    "ssl": true,
     "migrations": [
         "./src/database/migrations/*.ts"
      ],
@@ -18,4 +19,5 @@
         "migrationsDir": "./src/database/migrations",
         "entitiesDir": "./src/entity"
     }
+
 }

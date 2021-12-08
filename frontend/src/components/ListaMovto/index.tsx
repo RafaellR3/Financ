@@ -77,7 +77,7 @@ const ListaMovto = ({ idMes }: MainProps) => {
         .catch((error) => {
             window.alert(`Erro ao inserir movimento. Erro: ${error}`);
         })
-    }, [])
+    }, [detalhes])
 
 
     function AtualizarDetalhes() {

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
-import { DetalhesMovto, Movimento } from "types/Movimento";
+import { DetalhesMovto } from "types/Movimento";
 import { Api } from "utils/requests";
 import pago from 'assests/img/pago.png';
 import naopago from 'assests/img/naopago.png';

@@ -18,7 +18,7 @@ function AdicionarNovoMes() {
 
     return (
         <div >
-            <input className="btn btn-light btn-sm center border" value={nome} type="text" onChange={(e) => setMesNome(e.target.value)} />
+            <input className="btn btn-light btn-sm left border" value={nome} type="text" onChange={(e) => setMesNome(e.target.value)} />
             <Link to="#">
                 < img src={novo} alt="novo" width="25" onClick={onClick} />
             </Link>

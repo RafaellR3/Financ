@@ -64,7 +64,7 @@ const ListaMovto = ({ idMes }: MainProps) => {
                 setDetalhes(response.data)
             });
 
-    }, [dados]);
+    }, [idMes,dados]);
 
     const atualizadaDados = (detalhes: DetalhesMovto) => {
         setDados(detalhes)

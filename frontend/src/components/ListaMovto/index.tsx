@@ -110,7 +110,7 @@ const ListaMovto = ({ idMes }: MainProps) => {
                             <tbody className="detalhes">
                                 {detalhes.Entradas.sort().map(item => (
                                     <tr key={item.idmovimento}>
-                                        <td >{item.descricao} {':'}</td>
+                                        <td >{item.descricao}</td>
                                         <td className="monetario">{item.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
 
                                         <td className="btn btn-lg" onClick={() => ConfirmacaoDeletar(item.idmovimento, item.status, item.descricao)}>
@@ -138,7 +138,7 @@ const ListaMovto = ({ idMes }: MainProps) => {
                             <tbody className="detalhes">
                                 {detalhes.Saidas.sort().map(item => (
                                     <tr key={item.idmovimento}>
-                                        <td >{item.descricao} {':'}</td>
+                                        <td >{item.descricao} </td>
                                         <td >{item.DataVencto}</td>
                                         <td className="monetario">{item.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
                                         <td className="btn btn-lg" width="30px" onClick={() => Confirmacao(item.idmovimento, item.status, item.descricao)}>

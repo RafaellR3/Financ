@@ -12,8 +12,8 @@ app.use(express.json());
 
 app.use(router);
 
-app.listen(process.env.PORT || 3000, function(){
-  console.log("Express server listening on port %d in %s mode");
+app.listen(process.env.PORT || 5000, function(){
+  console.log("Express server listening on port %d in %s mode", process.env.PORT, app.settings.env);
 });
 
 app.use(

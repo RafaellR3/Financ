@@ -11,8 +11,6 @@ app.use(express.json());
 
 app.use(router);
 
-app.listen(process.env.PORT || 5000);
-
 app.use(
   (err: Error, request: Request, response: Response, next: NextFunction) => {
     if (err instanceof Error) {

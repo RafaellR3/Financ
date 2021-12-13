@@ -2,7 +2,7 @@ import axios from "axios";
 import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import { Api } from "utils/requests";
-import novo from "../../assests/img/novo.png"
+import novo from "assests/img/novo.png";
 
 function AdicionarNovoMes() {
 

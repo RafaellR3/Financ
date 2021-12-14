@@ -26,10 +26,6 @@ app.use(
       message: "Internal Server Error",
     });
 
-    return response.status(401).json({
-      status: "error",
-      message: "Usuário não autenticado!",
-    });
   }
 );
 app.use(express.json());

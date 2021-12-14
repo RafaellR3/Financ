@@ -1,3 +1,4 @@
+import dotenv from "dotenv"
 import "reflect-metadata";
 import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
@@ -5,6 +6,8 @@ import { router } from "./routes";
 import cors from "cors";
 
 import "./database";
+import { DeleteMovimentoService } from "./services/movimentoService/DeleteMovimentoService";
+
 
 const app = express();
 app.use(cors());
@@ -32,5 +35,5 @@ app.use(
 app.use(express.json());
 
 app.use(router);
-
-app.listen(process.env.PORT, () => console.log("Server is running"));
+dotenv.config();
+app.listen(process.env.PORT, () => console.log("Server is running. Porta", process.env.PORT));

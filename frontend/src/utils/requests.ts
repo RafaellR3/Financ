@@ -1,1 +1,1 @@
-export const Api = 'http://localhost:5000';
+export const Api = 'https://financr3.herokuapp.com/';

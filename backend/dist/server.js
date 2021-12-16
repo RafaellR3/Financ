@@ -24,12 +24,8 @@ app.use((err, request, response, next) => {
         status: "error",
         message: "Internal Server Error",
     });
-    return response.status(401).json({
-        status: "error",
-        message: "Usuário não autenticado!",
-    });
 });
 app.use(express_1.default.json());
 app.use(routes_1.router);
 dotenv_1.default.config();
-app.listen(process.env.PORT, () => console.log("Server is running. Porta", process.env.PORT));
+app.listen(process.env.PORT || 5000, () => console.log("Server is running. Porta", process.env.PORT));

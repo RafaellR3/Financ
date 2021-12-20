@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RecuperarMovimentoPorId = exports.RecuperarDetalhesMovto = exports.RecuperarTodos = exports.RecuperarMovimentoPorTipo = exports.RecuperarMovimentoPorMes = void 0;
 const typeorm_1 = require("typeorm");
 const MovimentoRepositories_1 = require("../../repositories/MovimentoRepositories");
-const Enums_1 = require("../../../dist/entity/enum/Enums");
+const Enums_1 = require("../../../src/entity/enum/Enums");
 class RecuperarMovimentoPorId {
     execute(_idMovimento) {
         return __awaiter(this, void 0, void 0, function* () {

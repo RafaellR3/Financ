@@ -30,7 +30,7 @@ app.use(
 );
 app.use(express.json());
 
-var distDir = __dirname + "/ dist /" ;
+var distDir = __dirname + "/dist/controller/" ;
 app.use (express.static(distDir));
 
 app.use(router);

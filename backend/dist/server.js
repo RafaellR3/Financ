@@ -26,7 +26,7 @@ app.use((err, request, response, next) => {
     });
 });
 app.use(express_1.default.json());
-var distDir = __dirname + "/ dist /";
+var distDir = __dirname + "/ dist/controller";
 app.use(express_1.default.static(distDir));
 app.use(routes_1.router);
 dotenv_1.default.config();

@@ -1,6 +1,6 @@
 import { Double, getCustomRepository } from "typeorm";
 import { MovimentoRepositories } from "../../repositories/MovimentoRepositories";
-import { StatusMovto, TipoMovimento } from "../../../src/entity/enum/Enums";
+import { StatusMovto, TipoMovimento } from "../../entity/enum/Enums";
 import { Movimento } from "../../entity/Movimento";
 
 interface IMovimento {

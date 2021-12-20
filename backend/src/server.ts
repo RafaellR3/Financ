@@ -30,6 +30,9 @@ app.use(
 );
 app.use(express.json());
 
+var distDir = __dirname + "/ dist /" ;
+app.use (express.static(distDir));
+
 app.use(router);
 dotenv.config();
 app.listen(process.env.PORT ||5000, () => console.log("Server is running. Porta", process.env.PORT));

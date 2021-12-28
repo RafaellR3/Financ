@@ -6,12 +6,17 @@ import { router } from "./routes";
 import cors from "cors";
 
 import "./database";
-import { DeleteMovimentoService } from "./services/movimentoService/DeleteMovimentoService";
 
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+dotenv.config();
+
+var distDir = __dirname + "/dist" ;
+app.use (express.static(distDir));
+
 app.use(router);
 app.use(
   (err: Error, request: Request, response: Response, next: NextFunction) => {
@@ -28,11 +33,5 @@ app.use(
 
   }
 );
-app.use(express.json());
 
-app.use(router);
-dotenv.config();
-
-var distDir = __dirname + "/dist" ;
-app.use (express.static(distDir));
 app.listen(process.env.PORT ||5000, () => console.log("Server is running. Porta", process.env.PORT));

@@ -13,6 +13,9 @@ require("./database");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
+dotenv_1.default.config();
+var distDir = __dirname + "/dist";
+app.use(express_1.default.static(distDir));
 app.use(routes_1.router);
 app.use((err, request, response, next) => {
     if (err instanceof Error) {
@@ -25,9 +28,4 @@ app.use((err, request, response, next) => {
         message: "Internal Server Error",
     });
 });
-app.use(express_1.default.json());
-app.use(routes_1.router);
-dotenv_1.default.config();
-var distDir = __dirname + "/dist";
-app.use(express_1.default.static(distDir));
 app.listen(process.env.PORT || 5000, () => console.log("Server is running. Porta", process.env.PORT));

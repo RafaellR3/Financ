@@ -89,10 +89,12 @@ const ListaMovto = ({ idMes }: MainProps) => {
         if (status <= '0') {
             if (window.confirm(`Você tem certeza que deseja pagar a conta ${descricao}?`)) {
                 pagarMovimento(_idMovimento);
+                atualizadaDados(detalhes);
             }
         } else {
             if (window.confirm(`Você tem certeza que deseja desfazer o pagamento da conta ${descricao}?`)) {
                 desfazerPagamentoMovimento(_idMovimento);
+                atualizadaDados(detalhes);
             }
         }
     }
@@ -101,6 +103,7 @@ const ListaMovto = ({ idMes }: MainProps) => {
 
         if (window.confirm(`Você tem certeza que deseja deletar a conta ${descricao}?`)) {
             deletarMovimento(_idMovimento);
+            atualizadaDados(detalhes);
         }
     }
 

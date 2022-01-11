@@ -8,6 +8,7 @@ require("reflect-metadata");
 const express_1 = __importDefault(require("express"));
 require("express-async-errors");
 const cors_1 = __importDefault(require("cors"));
+const routes_1 = __importDefault(require("./routes"));
 require("./database");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
@@ -15,8 +16,7 @@ app.use(express_1.default.json());
 dotenv_1.default.config();
 var distDir = __dirname + "/dist";
 app.use(express_1.default.static(distDir));
-var router = express_1.default.Router();
-app.use(router);
+app.use(routes_1.default);
 app.use((err, request, response, next) => {
     if (err instanceof Error) {
         return response.status(400).json({

@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const MovimentoController_1 = require("../controller/MovimentoController");
+const movimentoRouter = (0, express_1.Router)();
+const movimentoController = new MovimentoController_1.MovimentoController();
+movimentoRouter.post("/", movimentoController.handle);
+movimentoRouter.put("/editar/:id", movimentoController.Editar);
+movimentoRouter.put("/deletar/:id", movimentoController.Deletar);
+movimentoRouter.put("/pagar/:id", movimentoController.Pagar);
+movimentoRouter.put("/desfazerpagamento/:id", movimentoController.DesfazerPagamento);
+movimentoRouter.get("/RecuperarTodos", movimentoController.RecuperarMovimentoTodos);
+movimentoRouter.get("/RecuperarMovimentoPorId/:id", movimentoController.RecuperarMovimentoPorId);
+movimentoRouter.get("/RecuperarPorMes", movimentoController.RecuperarMovimentoPorMes);
+movimentoRouter.get("/RecuperarPorTipo", movimentoController.RecuperarMovimentoPorTipo);
+movimentoRouter.get("/RecuperarDetalhesMovto/:idmes", movimentoController.RecuperarDetalhesMovto);
+exports.default = movimentoRouter;

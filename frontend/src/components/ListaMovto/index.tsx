@@ -58,11 +58,22 @@ const ListaMovto = ({ idMes }: MainProps) => {
     }, [detalhes]);
 
     const desfazerPagamentoMovimento = useCallback(async (idMovimento) => {
-        await axios.put(`${Api}/Movimento/desfazerpagamento/${idMovimento}`);
-    }, [])
+        await axios.put(`${Api}/Movimento/desfazerpagamento/${idMovimento}`)
+        .then((response) => {
+            atualizadaDados(detalhes)})
+        .catch((error) => {
+            window.alert(`Erro ao desfazer pagamento do movimento. Erro: ${error}`);
+        })
+    }, [detalhes]);
+
     const deletarMovimento = useCallback(async (idMovimento) => {
-        await axios.put(`${Api}/Movimento/deletar/${idMovimento}`);
-    }, []);
+        await axios.put(`${Api}/Movimento/deletar/${idMovimento}`) 
+        .then((response) => {
+            atualizadaDados(detalhes)})
+        .catch((error) => {
+            window.alert(`Erro ao deletar movimento. Erro: ${error}`);
+        })
+    }, [detalhes]);
 
     const inserirNovoMovimento = useCallback(async (idmes: string, descricao: string, valor: string, tipo: string, datavencto: string) => {
         await axios.post(`${Api}/Movimento`, { idmes, descricao, valor, tipo, datavencto })
@@ -78,12 +89,10 @@ const ListaMovto = ({ idMes }: MainProps) => {
         if (status <= '0') {
             if (window.confirm(`Você tem certeza que deseja pagar a conta ${descricao}?`)) {
                 pagarMovimento(_idMovimento);
-                atualizadaDados(detalhes);
             }
         } else {
             if (window.confirm(`Você tem certeza que deseja desfazer o pagamento da conta ${descricao}?`)) {
                 desfazerPagamentoMovimento(_idMovimento);
-                atualizadaDados(detalhes);
             }
         }
     }
@@ -92,7 +101,6 @@ const ListaMovto = ({ idMes }: MainProps) => {
 
         if (window.confirm(`Você tem certeza que deseja deletar a conta ${descricao}?`)) {
             deletarMovimento(_idMovimento);
-            atualizadaDados(detalhes);
         }
     }
 

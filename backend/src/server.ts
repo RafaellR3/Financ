@@ -3,6 +3,7 @@ import "reflect-metadata";
 import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
 import cors from "cors";
+import routes from './routes';
 
 import "./database";
 
@@ -15,8 +16,7 @@ dotenv.config();
 var distDir = __dirname + "/dist" ;
 app.use (express.static(distDir));
 
-var router = express.Router();
-app.use(router);
+app.use(routes);
 app.use(
   (err: Error, request: Request, response: Response, next: NextFunction) => {
     if (err instanceof Error) {

@@ -69,15 +69,10 @@ class RecuperarMovimentoPorTipo {
 class RecuperarDetalhesMovto {
 
     async execute(_idMes: string) {
-        const recuperarMovimentoPorMes = new RecuperarMovimentoPorMes();
         const movimentoRepository = getCustomRepository(MovimentoRepositories);
         const movimentos = await movimentoRepository.find({
             where: { idmes: _idMes },
         })
-
-        if (movimentos.length <= 0) {
-            throw new Error(`Não foi possível localizar o movimentos no mês ${_idMes}!`);
-        }
 
         const detalhes = {} as IListaDetalhes;
         detalhes.idmes = _idMes;

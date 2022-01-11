@@ -33,4 +33,4 @@ app.use(
   }
 );
 
-app.listen( process.env.PORT|| 5432, () => console.log("Server is running. Porta",  5432));
+app.listen( process.env.PORT|| 5432, () => console.log("Server is running. Porta",  process.env.PORT));

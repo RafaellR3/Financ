@@ -24,7 +24,7 @@ router.get("/usuario/recuperartodos", usuarioController.RecuperarUsuarioTodos);
 
 //Mes
 const mesController = new MesController();
-router.post("/mes", mesController.handle);
+router.post("/", mesController.handle);
 router.get("/mes/recuperartodos", mesController.RecuperarTodos);
 
 //Movimento

@@ -1,28 +1,30 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
 const AutenticacaoUsuarioController_1 = require("./controller/AutenticacaoUsuarioController");
-const UsuarioController_1 = require("./controller/UsuarioController");
-const MesController_1 = require("./controller/MesController");
-const MovimentoController_1 = require("./controller/MovimentoController");
-const VerificaPermissao_1 = require("./middleware/VerificaPermissao");
-const express = require('express');
-const router = express.Router();
+const mes_routes_1 = __importDefault(require("./routes/mes.routes"));
+const routes = (0, express_1.Router)();
 //Autenticacao
 const autenticacaoUsuarioController = new AutenticacaoUsuarioController_1.AutenticacaoUsuarioController();
-router.post("/Login", autenticacaoUsuarioController.handle);
+routes.use('/mes', mes_routes_1.default);
+exports.default = routes;
+/* router.post("/Login", autenticacaoUsuarioController.handle);
+
 //router.use(VerificaAutenticacao);
-router.get("/VerificaPermissao", VerificaPermissao_1.VerificaPermissao);
+
+router.get("/VerificaPermissao", VerificaPermissao);
+
 //Usuario
-const usuarioController = new UsuarioController_1.UsuarioController();
-router.post("/usuario", usuarioController.handle);
-router.get("/usuario/recuperarpornome", usuarioController.RecuperarUsuarioPorNome);
+const usuarioController = new UsuarioController();
+router.post("/usuario",  usuarioController.handle);
+router.get("/usuario/recuperarpornome",  usuarioController.RecuperarUsuarioPorNome);
 router.get("/usuario/recuperartodos", usuarioController.RecuperarUsuarioTodos);
-//Mes
-const mesController = new MesController_1.MesController();
-router.post("/mes", mesController.handle);
-router.get("/mes/recuperartodos", mesController.RecuperarTodos);
+
 //Movimento
-const movimentoController = new MovimentoController_1.MovimentoController();
+const movimentoController = new MovimentoController();
 router.post("/movimento", movimentoController.handle);
 router.put("/movimento/editar/:id", movimentoController.Editar);
 router.put("/movimento/deletar/:id", movimentoController.Deletar);
@@ -32,6 +34,4 @@ router.get("/movimento/RecuperarTodos", movimentoController.RecuperarMovimentoTo
 router.get("/movimento/RecuperarMovimentoPorId/:id", movimentoController.RecuperarMovimentoPorId);
 router.get("/movimento/RecuperarPorMes", movimentoController.RecuperarMovimentoPorMes);
 router.get("/movimento/RecuperarPorTipo", movimentoController.RecuperarMovimentoPorTipo);
-router.get("/movimento/RecuperarDetalhesMovto/:idmes", movimentoController.RecuperarDetalhesMovto);
-
-module.exports = router;
+router.get("/movimento/RecuperarDetalhesMovto/:idmes", movimentoController.RecuperarDetalhesMovto); */

@@ -1,14 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.router = void 0;
-const express_1 = require("express");
 const AutenticacaoUsuarioController_1 = require("./controller/AutenticacaoUsuarioController");
 const UsuarioController_1 = require("./controller/UsuarioController");
 const MesController_1 = require("./controller/MesController");
 const MovimentoController_1 = require("./controller/MovimentoController");
 const VerificaPermissao_1 = require("./middleware/VerificaPermissao");
-const router = (0, express_1.Router)();
-exports.router = router;
+const express = require('express');
+const router = express.Router();
 //Autenticacao
 const autenticacaoUsuarioController = new AutenticacaoUsuarioController_1.AutenticacaoUsuarioController();
 router.post("/Login", autenticacaoUsuarioController.handle);
@@ -35,3 +33,5 @@ router.get("/movimento/RecuperarMovimentoPorId/:id", movimentoController.Recuper
 router.get("/movimento/RecuperarPorMes", movimentoController.RecuperarMovimentoPorMes);
 router.get("/movimento/RecuperarPorTipo", movimentoController.RecuperarMovimentoPorTipo);
 router.get("/movimento/RecuperarDetalhesMovto/:idmes", movimentoController.RecuperarDetalhesMovto);
+
+module.exports = router;

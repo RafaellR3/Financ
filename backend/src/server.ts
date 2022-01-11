@@ -7,7 +7,6 @@ import cors from "cors";
 
 import "./database";
 
-
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -34,4 +33,4 @@ app.use(
   }
 );
 
-app.listen( 5432 || 5432, () => console.log("Server is running. Porta",  5432));
+app.listen( process.env.PORT|| 5432, () => console.log("Server is running. Porta",  5432));

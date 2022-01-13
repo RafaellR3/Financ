@@ -21,9 +21,7 @@ class AutenticacaoUsuarioService {
       throw new Error("Email/senha incorreta");
     }
 
-    const senhaMatch = await compare(senha, usuario.senha);
-
-    if (!senhaMatch) {
+    if (senha !== usuario.senha) {
       throw new Error("Senha incorreta" + senha + " "+ usuario.senha);
     }
 

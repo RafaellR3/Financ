@@ -6,6 +6,7 @@ import pago from 'assests/img/pago.png';
 import naopago from 'assests/img/naopago.png';
 import deletar from 'assests/img/deletar.png';
 import AdicionarNovoMovimento from "components/NovoMovimento";
+import PagarMovimento from "components/PagarMovimento";
 
 interface MainProps {
     idMes: string;
@@ -89,12 +90,10 @@ const ListaMovto = ({ idMes }: MainProps) => {
         if (status <= '0') {
             if (window.confirm(`Você tem certeza que deseja pagar a conta ${descricao}?`)) {
                 pagarMovimento(_idMovimento);
-                atualizadaDados(detalhes);
             }
         } else {
             if (window.confirm(`Você tem certeza que deseja desfazer o pagamento da conta ${descricao}?`)) {
                 desfazerPagamentoMovimento(_idMovimento);
-                atualizadaDados(detalhes);
             }
         }
     }
@@ -157,9 +156,10 @@ const ListaMovto = ({ idMes }: MainProps) => {
                                         <td >{item.descricao} </td>
                                         <td >{item.DataVencto}</td>
                                         <td className="monetario">{item.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
-                                        <td className="btn btn-lg" width="30px" onClick={() => Confirmacao(item.idmovimento, item.status, item.descricao)}>
+                                        {/* <td className="btn btn-lg" width="30px" onClick={() => Confirmacao(item.idmovimento, item.status, item.descricao)}>
                                             {item.status > '0' ? <img src={pago} alt="FinancR3" width="20" /> : <img src={naopago} alt="FinancR3" width="15" />}
-                                        </td>
+                                        </td> */}
+                                        <td className="btn btn-lg" width="30px">{<PagarMovimento idmovimento={item.idmovimento} status={item.status} descricao={item.descricao} Confirmacao={Confirmacao}/>} </td>
                                         <td className="btn btn-lg" width="30px" onClick={() => ConfirmacaoDeletar(item.idmovimento, item.status, item.descricao)}>
                                             <img src={deletar} alt="FinancR3" width="10" />
                                         </td>

@@ -9,6 +9,6 @@ const autenticarUsuarioController = new AutenticacaoUsuarioController();
 usuarioRouter.post("/",  usuarioController.handle);
 usuarioRouter.get("/recuperarpornome",  usuarioController.RecuperarUsuarioPorNome);
 usuarioRouter.get("/recuperartodos", usuarioController.RecuperarUsuarioTodos);
-usuarioRouter.get("/Autenticar", autenticarUsuarioController.handle);
+usuarioRouter.post("/Autenticar", autenticarUsuarioController.handle);
 
 export default usuarioRouter;

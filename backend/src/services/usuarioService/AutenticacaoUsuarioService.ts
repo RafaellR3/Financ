@@ -1,5 +1,4 @@
 import { getCustomRepository } from "typeorm";
-import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 
 import { UsuarioRepositories } from "../../repositories/UsuarioRepositories";
@@ -18,11 +17,11 @@ class AutenticacaoUsuarioService {
     });
 
     if (!usuario) {
-      throw new Error("Email/senha incorreta");
+      throw new Error("Não foi encontrado nenhum usuario com este e-mail!");
     }
 
     if (senha !== usuario.senha) {
-      throw new Error("Senha incorreta" + senha + " "+ usuario.senha);
+      throw new Error("Senha incorreta!");
     }
 
     const token = sign(

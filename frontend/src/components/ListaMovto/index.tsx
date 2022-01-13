@@ -100,7 +100,6 @@ const ListaMovto = ({ idMes }: MainProps) => {
 
         if (window.confirm(`Você tem certeza que deseja deletar a conta ${descricao}?`)) {
             deletarMovimento(_idMovimento);
-            atualizadaDados(detalhes);
         }
     }
 

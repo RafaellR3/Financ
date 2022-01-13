@@ -2,8 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { DetalhesMovto } from "types/Movimento";
 import { Api } from "utils/requests";
-import pago from 'assests/img/pago.png';
-import naopago from 'assests/img/naopago.png';
 import deletar from 'assests/img/deletar.png';
 import AdicionarNovoMovimento from "components/NovoMovimento";
 import PagarMovimento from "components/PagarMovimento";
@@ -156,9 +154,6 @@ const ListaMovto = ({ idMes }: MainProps) => {
                                         <td >{item.descricao} </td>
                                         <td >{item.DataVencto}</td>
                                         <td className="monetario">{item.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
-                                        {/* <td className="btn btn-lg" width="30px" onClick={() => Confirmacao(item.idmovimento, item.status, item.descricao)}>
-                                            {item.status > '0' ? <img src={pago} alt="FinancR3" width="20" /> : <img src={naopago} alt="FinancR3" width="15" />}
-                                        </td> */}
                                         <td className="btn btn-lg" width="30px">{<PagarMovimento idmovimento={item.idmovimento} status={item.status} descricao={item.descricao} Confirmacao={Confirmacao}/>} </td>
                                         <td className="btn btn-lg" width="30px" onClick={() => ConfirmacaoDeletar(item.idmovimento, item.status, item.descricao)}>
                                             <img src={deletar} alt="FinancR3" width="10" />

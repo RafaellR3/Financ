@@ -20,6 +20,7 @@ function ListaMes() {
             .then(response => {
                 setMes({ meses: response.data })
             });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

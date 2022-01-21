@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import  { Link, Redirect } from 'react-router-dom'
 import { Api } from "utils/requests";
 
 function Autenticarusuario(){
@@ -11,17 +11,19 @@ function Autenticarusuario(){
     const Autenticar = useCallback(async () => {
          await axios.post(`${Api}/usuario/Autenticar`, { email, senha })
          .then((response) => {
-            localStorage.setItem("token", "Bearer " + response.data);
+            localStorage.setItem("token",  response.data);
          }).catch((error) => {
-             window.alert(error);
+            localStorage.setItem("token",  '');
+            window.alert("Usuário não autenticado, faça o login novamente.");
          })
     },[email, senha]);
 
     const onClick = () => {
-        Autenticar();
+        Autenticar();      
     }
 
     return (
+        
         <div className="container d-flex justify-content-center">
             <div className="card mt-5 w-50">
                 <div className="card-body">
@@ -46,7 +48,7 @@ function Autenticarusuario(){
                                 onChange={(e) => setSenha(e.target.value)}
                                 />
                         </div>
-                        <Link to="#"  className="btn btn-primary" onClick={onClick} >Entrar </Link>
+                        <Link to="/Home"  className="btn btn-primary" onClick={onClick} >Entrar </Link>
                     </form>
                 </div>
             </div>

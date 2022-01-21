@@ -14,7 +14,7 @@ const autenticacaoUsuarioController = new AutenticacaoUsuarioController();
 
 routes.post("/Login", autenticacaoUsuarioController.handle);
 routes.get("/VerificaPermissao", VerificaPermissao);
-//routes.use(VerificaAutenticacao);
+routes.use(VerificaAutenticacao);
 
 routes.use('/mes', mesRouter);
 routes.use('/movimento', movimentoRouter);

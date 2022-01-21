@@ -11,9 +11,9 @@ function Autenticarusuario(){
     const Autenticar = useCallback(async () => {
          await axios.post(`${Api}/usuario/Autenticar`, { email, senha })
          .then((response) => {
-             console.log(response.data);
+            localStorage.setItem("token", "Bearer " + response.data);
          }).catch((error) => {
-             window.alert(`Usuário ou senha inválidos`);
+             window.alert(error);
          })
     },[email, senha]);
 

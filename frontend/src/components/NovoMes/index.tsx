@@ -6,10 +6,16 @@ import novo from "assests/img/novo.png";
 
 function AdicionarNovoMes() {
 
+    let config = {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem("token")
+        }
+    }
     const [nome, setMesNome] = useState('');
 
     const inserirNovoMes = useCallback(async () => {
-        await axios.post(`${Api}/Mes`, {nome })
+        await axios.post(`${Api}/Mes`, {nome }, config)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nome])
 
     const onClick = () => {

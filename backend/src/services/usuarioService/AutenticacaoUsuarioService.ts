@@ -17,7 +17,7 @@ class AutenticacaoUsuarioService {
     });
 
     if (!usuario) {
-      throw new Error("Não foi encontrado nenhum usuario com este e-mail!");
+      throw new Error("Não foi encontrado nenhum usuário com este e-mail!");
     }
 
     if (senha !== usuario.senha) {

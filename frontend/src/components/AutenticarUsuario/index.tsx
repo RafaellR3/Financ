@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
-import  { Link, Redirect } from 'react-router-dom'
+import  { Link } from 'react-router-dom'
 import { Api } from "utils/requests";
 
 function Autenticarusuario(){

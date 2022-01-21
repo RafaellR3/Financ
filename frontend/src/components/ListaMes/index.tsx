@@ -7,11 +7,16 @@ import { Link } from "react-router-dom";
 
 function ListaMes() {
 
+    let config = {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem("token")
+        }
+    }
     const [meses, setMes] = useState<ListaMeses>({
     });
 
     useEffect(() => {
-        axios.get(`${Api}/Mes/RecuperarTodos`)
+        axios.get(`${Api}/Mes/RecuperarTodos`, config)
             .then(response => {
                 setMes({ meses: response.data })
             });

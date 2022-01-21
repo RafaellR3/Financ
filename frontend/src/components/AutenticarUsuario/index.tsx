@@ -9,7 +9,7 @@ function Autenticarusuario(){
     const [senha, setSenha] = useState('');
 
     const Autenticar = useCallback(async () => {
-         await axios.post(`${Api}/usuario/Autenticar`, { email, senha })
+         await axios.post(`${Api}/Login`, { email, senha })
          .then((response) => {
             localStorage.setItem("token",  response.data);
          }).catch((error) => {

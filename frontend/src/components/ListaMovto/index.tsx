@@ -11,7 +11,12 @@ interface MainProps {
 }
 
 const ListaMovto = ({ idMes }: MainProps) => {
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    let config = {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem("token")
+        }
+    }
     const [detalhes, setDetalhes] = useState<DetalhesMovto>({
         idMes: '',
         totalEntradas: 0,
@@ -25,12 +30,12 @@ const ListaMovto = ({ idMes }: MainProps) => {
 
     const [dados, setDados] = useState({});
     useEffect(() => {
-        axios.get(`${Api}/Movimento/RecuperarDetalhesMovto/${idMes}`)
+        axios.get(`${Api}/Movimento/RecuperarDetalhesMovto/${idMes}`, config)
             .then(response => {
                 setDetalhes(response.data)
             });
 
-    }, [idMes,dados]);
+    }, [config, idMes,dados]);
 
     const atualizadaDados = (detalhes: DetalhesMovto) => {
         setDados(detalhes)
@@ -39,7 +44,7 @@ const ListaMovto = ({ idMes }: MainProps) => {
     function AtualizarDetalhes() {
 
         useEffect(() => {
-            axios.get(`${Api}/Movimento/RecuperarDetalhesMovto/${idMes}`)
+            axios.get(`${Api}/Movimento/RecuperarDetalhesMovto/${idMes}`, config)
                 .then(response => {
                     setDetalhes(response.data)
                 });
@@ -48,39 +53,40 @@ const ListaMovto = ({ idMes }: MainProps) => {
     }
 
     const pagarMovimento = useCallback(async (idMovimento) => {
-        await axios.put(`${Api}/Movimento/pagar/${idMovimento}`)
+        await axios.put(`${Api}/Movimento/pagar/${idMovimento}`, config)
         .then((response) => {
             atualizadaDados(detalhes)})
         .catch((error) => {
             window.alert(`Erro ao pagar movimento. Erro: ${error}`);
         })
-    }, [detalhes]);
+    }, [config, detalhes]);
 
     const desfazerPagamentoMovimento = useCallback(async (idMovimento) => {
-        await axios.put(`${Api}/Movimento/desfazerpagamento/${idMovimento}`)
+        await axios.put(`${Api}/Movimento/desfazerpagamento/${idMovimento}`, config)
         .then((response) => {
             atualizadaDados(detalhes)})
         .catch((error) => {
             window.alert(`Erro ao desfazer pagamento do movimento. Erro: ${error}`);
         })
-    }, [detalhes]);
+    }, [config, detalhes]);
 
     const deletarMovimento = useCallback(async (idMovimento) => {
-        await axios.put(`${Api}/Movimento/deletar/${idMovimento}`) 
+        await axios.put(`${Api}/Movimento/deletar/${idMovimento}`, config) 
         .then((response) => {
             atualizadaDados(detalhes)})
         .catch((error) => {
             window.alert(`Erro ao deletar movimento. Erro: ${error}`);
         })
-    }, [detalhes]);
+    }, [config, detalhes]);
 
     const inserirNovoMovimento = useCallback(async (idmes: string, descricao: string, valor: string, tipo: string, datavencto: string) => {
-        await axios.post(`${Api}/Movimento`, { idmes, descricao, valor, tipo, datavencto })
+        await axios.post(`${Api}/Movimento`, { idmes, descricao, valor, tipo, datavencto }, config)
         .then((response) => {
             atualizadaDados(detalhes)})
         .catch((error) => {
             window.alert(`Erro ao inserir movimento. Erro: ${error}`);
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [detalhes]);
 
 

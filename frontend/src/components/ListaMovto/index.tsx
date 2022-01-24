@@ -11,12 +11,13 @@ interface MainProps {
 }
 
 const ListaMovto = ({ idMes }: MainProps) => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     let config = {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem("token")
         }
     }
+
     const [detalhes, setDetalhes] = useState<DetalhesMovto>({
         idMes: '',
         totalEntradas: 0,
@@ -35,7 +36,8 @@ const ListaMovto = ({ idMes }: MainProps) => {
                 setDetalhes(response.data)
             });
 
-    }, [config, idMes,dados]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [idMes,dados]);
 
     const atualizadaDados = (detalhes: DetalhesMovto) => {
         setDados(detalhes)
@@ -59,7 +61,8 @@ const ListaMovto = ({ idMes }: MainProps) => {
         .catch((error) => {
             window.alert(`Erro ao pagar movimento. Erro: ${error}`);
         })
-    }, [config, detalhes]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [detalhes]);
 
     const desfazerPagamentoMovimento = useCallback(async (idMovimento) => {
         await axios.put(`${Api}/Movimento/desfazerpagamento/${idMovimento}`, config)
@@ -68,7 +71,8 @@ const ListaMovto = ({ idMes }: MainProps) => {
         .catch((error) => {
             window.alert(`Erro ao desfazer pagamento do movimento. Erro: ${error}`);
         })
-    }, [config, detalhes]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [detalhes]);
 
     const deletarMovimento = useCallback(async (idMovimento) => {
         await axios.put(`${Api}/Movimento/deletar/${idMovimento}`, config) 
@@ -77,7 +81,8 @@ const ListaMovto = ({ idMes }: MainProps) => {
         .catch((error) => {
             window.alert(`Erro ao deletar movimento. Erro: ${error}`);
         })
-    }, [config, detalhes]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [detalhes]);
 
     const inserirNovoMovimento = useCallback(async (idmes: string, descricao: string, valor: string, tipo: string, datavencto: string) => {
         await axios.post(`${Api}/Movimento`, { idmes, descricao, valor, tipo, datavencto }, config)

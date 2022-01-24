@@ -55,7 +55,7 @@ const ListaMovto = ({ idMes }: MainProps) => {
     }
 
     const pagarMovimento = useCallback(async (idMovimento) => {
-        await axios.put(`${Api}/Movimento/pagar/${idMovimento}`, config)
+        await axios.put(`${Api}/Movimento/pagar/${idMovimento}`, null, config)
         .then((response) => {
             atualizadaDados(detalhes)})
         .catch((error) => {
@@ -65,7 +65,7 @@ const ListaMovto = ({ idMes }: MainProps) => {
     }, [detalhes]);
 
     const desfazerPagamentoMovimento = useCallback(async (idMovimento) => {
-        await axios.put(`${Api}/Movimento/desfazerpagamento/${idMovimento}`, config)
+        await axios.put(`${Api}/Movimento/desfazerpagamento/${idMovimento}`, null,  config)
         .then((response) => {
             atualizadaDados(detalhes)})
         .catch((error) => {
@@ -75,7 +75,7 @@ const ListaMovto = ({ idMes }: MainProps) => {
     }, [detalhes]);
 
     const deletarMovimento = useCallback(async (idMovimento) => {
-        await axios.put(`${Api}/Movimento/deletar/${idMovimento}`, config) 
+        await axios.put(`${Api}/Movimento/deletar/${idMovimento}`, null, config) 
         .then((response) => {
             atualizadaDados(detalhes)})
         .catch((error) => {

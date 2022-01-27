@@ -1,8 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import logo from 'assests/img/logo.png';
 import Autenticarusuario from 'components/AutenticarUsuario';
-import { Link } from 'react-router-dom';
 import { logout } from 'services/auth';
-import novo from 'assests/img/novo.png';
 
 function NavBar() {
 
@@ -21,8 +20,9 @@ function NavBar() {
           <a href="/Home">
             <img src={logo} alt="FinancR3" width="120" />
           </a>
-
-          <a className="navbar-brand" onClick={onClick} href='#'> Sair</a>
+          <a className="navbar-brand" onClick={onClick} href='#'> 
+            Sair
+          </a>
         </nav>
       </div>
     </div>

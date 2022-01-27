@@ -31,7 +31,7 @@ class AutenticacaoUsuarioService {
       "c60791440436aa6dac1d6a7f7b84602a", //financrafaelr3
       {
         subject: usuario.idusuario,
-        expiresIn: "1d",
+        expiresIn: "4h",
       }
     );
 

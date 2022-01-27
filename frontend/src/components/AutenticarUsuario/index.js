@@ -1,6 +1,7 @@
 import axios from "axios";
 import InputField from "components/InputField";
 import React from "react";
+import { login, logout } from "services/auth";
 import { Api } from "utils/requests";
 
 class Autenticarusuario extends React.PureComponent {
@@ -28,10 +29,12 @@ class Autenticarusuario extends React.PureComponent {
         try {
             await axios.post(`${Api}/Login`, { email, senha})
             .then((response) => {
-                localStorage.setItem("token",  response.data);
+                login (response.data);
+               // localStorage.setItem("token",  response.data);
                 window.location.href = '/Home';
             }).catch((error) => {
-                localStorage.setItem("token",  '');
+                logout();
+                //localStorage.setItem("token",  null);
                 window.alert("E-mail ou senha inválido, tente novamente.");
             })  
         } catch (error) {

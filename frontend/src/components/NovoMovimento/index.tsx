@@ -1,28 +1,55 @@
-
 import {  useState } from "react";
+import axios from "axios";
+import { Api } from "utils/requests";
 import novo from "../../assests/img/novo.png";
+import { Movimento } from "types/Movimento";
 
 interface MainProps {
     idMes: string;
     inserirNovoMovimento: Function;
+    atualizarMovimento: Function;
 }
 
-function AdicionarNovoMovimento ({ idMes, inserirNovoMovimento }: MainProps) {
+const AdicionarNovoMovimento = ({ idMes, inserirNovoMovimento, atualizarMovimento }: MainProps)=> {
+    const [codigoMovimento, setCodigoMovimento] = useState('');
     const [descricao, setDescricao] = useState('');
     const [dataVencto, setDataVencto] = useState('');
     const [valor, setValor] = useState('');
     const [tipo, setTipo] = useState('0');
 
-    // const inserirNovoMovimento = (descricao: string, valor: string, tipo: string, datavencto: string) => {
-    //      axios.post(`${Api}/Movimento`, { idmes, descricao, valor, tipo, datavencto });
-    // };
+    let config = {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem("token")
+        }
+    }
 
     const onClick = () => {
-        inserirNovoMovimento(idMes, descricao, valor,tipo,dataVencto);
+        if (codigoMovimento === '' || codigoMovimento == null){
+            atualizarMovimento(codigoMovimento, descricao, valor, tipo, dataVencto);
+        }else{
+            inserirNovoMovimento(idMes, descricao, valor, tipo, dataVencto);
+        }
+
         setValor('');
         setDataVencto('');
-        setTipo('');
         setDescricao('');
+        setCodigoMovimento('');
+        setTipo('');
+    }
+
+    function getMovimentoEdicao (codigoMovimento: string) {
+        setDescricao(codigoMovimento);
+        axios.get(`${Api}/Movimento/RecuperarMovimentoPorId/${codigoMovimento}`, config)
+            .then(response => {
+                setMovimentoEdicao(response.data);
+            });
+    }
+
+    function setMovimentoEdicao(movimento: Movimento){
+        setValor(movimento.valor.toString());
+        setDataVencto(movimento.DataVencto);
+        setTipo(movimento.tipo);
+        setDescricao(movimento.descricao);
     }
 
     return (

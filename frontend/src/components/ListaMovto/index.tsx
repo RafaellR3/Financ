@@ -5,6 +5,7 @@ import { Api } from "utils/requests";
 import deletar from 'assests/img/deletar.png';
 import AdicionarNovoMovimento from "components/NovoMovimento";
 import PagarMovimento from "components/PagarMovimento";
+import EditarMovimento from "components/EditarMovimento";
 
 interface MainProps {
     idMes: string;
@@ -42,9 +43,30 @@ const ListaMovto = ({ idMes }: MainProps) => {
     const atualizadaDados = (detalhes: DetalhesMovto) => {
         setDados(detalhes)
     }
+    const inserirNovoMovimento = useCallback(async (idmes: string, descricao: string, valor: string, tipo: string, datavencto: string) => {
+        await axios.post(`${Api}/Movimento`, { idmes, descricao, valor, tipo, datavencto }, config)
+        .then((response) => {
+            atualizadaDados(detalhes)})
+        .catch((error) => {
+            window.alert(`Erro ao inserir movimento. Erro: ${error}`);
+        })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [detalhes]);
 
+
+    const atualizarMovimento = useCallback(async (idmovimento: string, idmes: string, descricao: string, valor: string, tipo: string, datavencto: string) => {
+        await axios.post(`${Api}/Movimento/Editar/${idmovimento}`, { idmes, descricao, valor, tipo, datavencto }, config)
+        .then((response) => {
+            atualizadaDados(detalhes)})
+        .catch((error) => {
+            window.alert(`Erro ao inserir movimento. Erro: ${error}`);
+        })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [detalhes]);
+
+    const _movimento = <AdicionarNovoMovimento idMes={idMes} inserirNovoMovimento={inserirNovoMovimento} atualizarMovimento={atualizarMovimento} />;
+    
     function AtualizarDetalhes() {
-
         useEffect(() => {
             axios.get(`${Api}/Movimento/RecuperarDetalhesMovto/${idMes}`, config)
                 .then(response => {
@@ -84,17 +106,6 @@ const ListaMovto = ({ idMes }: MainProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [detalhes]);
 
-    const inserirNovoMovimento = useCallback(async (idmes: string, descricao: string, valor: string, tipo: string, datavencto: string) => {
-        await axios.post(`${Api}/Movimento`, { idmes, descricao, valor, tipo, datavencto }, config)
-        .then((response) => {
-            atualizadaDados(detalhes)})
-        .catch((error) => {
-            window.alert(`Erro ao inserir movimento. Erro: ${error}`);
-        })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [detalhes]);
-
-
     function Confirmacao(_idMovimento: string, status: string, descricao: string) {
         if (status <= '0') {
             if (window.confirm(`Você tem certeza que deseja pagar a conta ${descricao}?`)) {
@@ -107,8 +118,18 @@ const ListaMovto = ({ idMes }: MainProps) => {
         }
     }
 
-    function ConfirmacaoDeletar(_idMovimento: string, status: string, descricao: string) {
+    function Editar(_idMovimento: string, status: string, descricao: string) {
+        if (status > '0') {
+            window.alert(`${descricao} já foi pago, portanto não pode ser editado.`);
+        } else {
+            axios.get(`${Api}/Movimento/RecuperarMovimentoPorId/${_idMovimento}`, config)
+                .then(response => {
+                    //setMovimentoEdicao(response.data);
+                });
+        }
+    }
 
+    function ConfirmacaoDeletar(_idMovimento: string, status: string, descricao: string) {
         if (window.confirm(`Você tem certeza que deseja deletar a conta ${descricao}?`)) {
             deletarMovimento(_idMovimento);
         }
@@ -165,6 +186,7 @@ const ListaMovto = ({ idMes }: MainProps) => {
                                         <td >{item.DataVencto}</td>
                                         <td className="monetario">{item.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
                                         <td className="btn btn-lg" width="30px">{<PagarMovimento idmovimento={item.idmovimento} status={item.status} descricao={item.descricao} Confirmacao={Confirmacao}/>} </td>
+                                        <td className="btn btn-lg" width="30px">{<EditarMovimento idmovimento={item.idmovimento} status={item.status} descricao={item.descricao} Editar={Editar}/>} </td>
                                         <td className="btn btn-lg" width="30px" onClick={() => ConfirmacaoDeletar(item.idmovimento, item.status, item.descricao)}>
                                             <img src={deletar} alt="FinancR3" width="10" />
                                         </td>
@@ -187,7 +209,7 @@ const ListaMovto = ({ idMes }: MainProps) => {
                 </div>
             </div>
 
-            {<AdicionarNovoMovimento idMes={idMes} inserirNovoMovimento={inserirNovoMovimento} />}
+            {_movimento}
         </>
     )
 }

@@ -1,4 +1,3 @@
-
 import {  useState } from "react";
 import novo from "../../assests/img/novo.png";
 
@@ -7,22 +6,21 @@ interface MainProps {
     inserirNovoMovimento: Function;
 }
 
-function AdicionarNovoMovimento ({ idMes, inserirNovoMovimento }: MainProps) {
+const AdicionarNovoMovimento = ({ idMes, inserirNovoMovimento }: MainProps)=> {
+    const [codigoMovimento, setCodigoMovimento] = useState('');
     const [descricao, setDescricao] = useState('');
-    const [dataVencto, setDataVencto] = useState('');
     const [valor, setValor] = useState('');
     const [tipo, setTipo] = useState('0');
 
-    // const inserirNovoMovimento = (descricao: string, valor: string, tipo: string, datavencto: string) => {
-    //      axios.post(`${Api}/Movimento`, { idmes, descricao, valor, tipo, datavencto });
-    // };
-
     const onClick = () => {
-        inserirNovoMovimento(idMes, descricao, valor,tipo,dataVencto);
+        if (codigoMovimento === '' || codigoMovimento == null){
+            inserirNovoMovimento(idMes, descricao, valor, tipo, new Date().toString());
+        }
+
         setValor('');
-        setDataVencto('');
-        setTipo('');
         setDescricao('');
+        setCodigoMovimento('');
+        setTipo('');
     }
 
     return (
@@ -38,19 +36,16 @@ function AdicionarNovoMovimento ({ idMes, inserirNovoMovimento }: MainProps) {
                                 <th></th>
                                 <th></th>
                                 <th></th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody className="detalhes">
                             <tr>
-                                <td><input className="btn btn-light btn-sm left border" 
+                                <td><input  id="idDescricao"
+                                            className="btn btn-light btn-sm left border" 
                                             placeholder="Descrição"  
                                             type="text"  
+                                            value = {descricao}
                                             onChange={(e) => setDescricao(e.target.value)} /></td>
-                                <td><input className="btn btn-light btn-sm left border" 
-                                           placeholder="Data vencto" value={dataVencto} 
-                                           type="date"  
-                                           onChange={(e) => setDataVencto(e.target.value)} /></td>
                                 <td><select className="btn btn-light btn-sm left border"
                                     value={tipo} onChange={(e) => setTipo(e.target.value)}>
                                     <option value='0' selected >Entrada</option>

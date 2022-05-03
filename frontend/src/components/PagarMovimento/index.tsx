@@ -16,7 +16,7 @@ function PagarMovimento ({ idmovimento, status, descricao, Confirmacao }: MainPr
     }
 
     return (
-        status > '0' ? <img onClick={onClick} src={pago} alt="FinancR3" width="20" /> : <img onClick={onClick} src={naopago} alt="FinancR3" width="15" />
+        status > '0' ? <img onClick={onClick} src={pago} alt="FinancR3" width="15" /> : <img onClick={onClick} src={naopago} alt="FinancR3" width="15" />
     )
 }
 export default PagarMovimento;

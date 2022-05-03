@@ -15,6 +15,6 @@ export type Movimento = {
     tipo: string;
     valor: number;
     status: string;
-    DataVencto: string;
+    datavencto: string;
     idmes: string;
 }

@@ -16,7 +16,7 @@ function NavBar() {
   return (
     <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-light border-bottom shadow-sm">
       <div className="container">
-        <nav className="navbar navbar-expand-sm justify-content-end ">
+        <nav className="navbar  ">
           <a href="/Home">
             <img src={logo} alt="FinancR3" width="120" />
           </a>

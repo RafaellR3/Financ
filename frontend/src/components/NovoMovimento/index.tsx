@@ -1,55 +1,26 @@
 import {  useState } from "react";
-import axios from "axios";
-import { Api } from "utils/requests";
 import novo from "../../assests/img/novo.png";
-import { Movimento } from "types/Movimento";
 
 interface MainProps {
     idMes: string;
     inserirNovoMovimento: Function;
-    atualizarMovimento: Function;
 }
 
-const AdicionarNovoMovimento = ({ idMes, inserirNovoMovimento, atualizarMovimento }: MainProps)=> {
+const AdicionarNovoMovimento = ({ idMes, inserirNovoMovimento }: MainProps)=> {
     const [codigoMovimento, setCodigoMovimento] = useState('');
     const [descricao, setDescricao] = useState('');
-    const [dataVencto, setDataVencto] = useState('');
     const [valor, setValor] = useState('');
     const [tipo, setTipo] = useState('0');
 
-    let config = {
-        headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem("token")
-        }
-    }
-
     const onClick = () => {
         if (codigoMovimento === '' || codigoMovimento == null){
-            atualizarMovimento(codigoMovimento, descricao, valor, tipo, dataVencto);
-        }else{
-            inserirNovoMovimento(idMes, descricao, valor, tipo, dataVencto);
+            inserirNovoMovimento(idMes, descricao, valor, tipo, new Date().toString());
         }
 
         setValor('');
-        setDataVencto('');
         setDescricao('');
         setCodigoMovimento('');
         setTipo('');
-    }
-
-    function getMovimentoEdicao (codigoMovimento: string) {
-        setDescricao(codigoMovimento);
-        axios.get(`${Api}/Movimento/RecuperarMovimentoPorId/${codigoMovimento}`, config)
-            .then(response => {
-                setMovimentoEdicao(response.data);
-            });
-    }
-
-    function setMovimentoEdicao(movimento: Movimento){
-        setValor(movimento.valor.toString());
-        setDataVencto(movimento.DataVencto);
-        setTipo(movimento.tipo);
-        setDescricao(movimento.descricao);
     }
 
     return (
@@ -65,19 +36,16 @@ const AdicionarNovoMovimento = ({ idMes, inserirNovoMovimento, atualizarMoviment
                                 <th></th>
                                 <th></th>
                                 <th></th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody className="detalhes">
                             <tr>
-                                <td><input className="btn btn-light btn-sm left border" 
+                                <td><input  id="idDescricao"
+                                            className="btn btn-light btn-sm left border" 
                                             placeholder="Descrição"  
                                             type="text"  
+                                            value = {descricao}
                                             onChange={(e) => setDescricao(e.target.value)} /></td>
-                                <td><input className="btn btn-light btn-sm left border" 
-                                           placeholder="Data vencto" value={dataVencto} 
-                                           type="date"  
-                                           onChange={(e) => setDataVencto(e.target.value)} /></td>
                                 <td><select className="btn btn-light btn-sm left border"
                                     value={tipo} onChange={(e) => setTipo(e.target.value)}>
                                     <option value='0' selected >Entrada</option>

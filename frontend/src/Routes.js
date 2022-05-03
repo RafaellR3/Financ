@@ -4,8 +4,6 @@ import Dashboard from "pages/Dashboard";
 import Detalhes from "pages/Detalhes";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Login from "pages/Login";
-
-
 import { isAuthenticated } from "./services/auth";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (

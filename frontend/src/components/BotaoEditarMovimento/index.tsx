@@ -8,7 +8,7 @@ interface MainProps {
     Editar: Function;
 }
 
-function EditarMovimento ({ idmovimento, status, descricao, Editar }: MainProps) {
+function BotaoEditarMovimento ({ idmovimento, status, descricao, Editar }: MainProps) {
 
     const onClick = () => {
         Editar(idmovimento, status, descricao);
@@ -18,4 +18,4 @@ function EditarMovimento ({ idmovimento, status, descricao, Editar }: MainProps)
         <img onClick={onClick} src={editar} alt="FinancR3" width="20" /> 
     )
 }
-export default EditarMovimento;
+export default BotaoEditarMovimento;

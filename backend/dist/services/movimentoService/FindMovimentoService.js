@@ -73,7 +73,7 @@ class RecuperarDetalhesMovto {
             const detalhes = {};
             detalhes.idmes = _idMes;
             detalhes.Entradas = (yield movimentos).filter(movimento => movimento.tipo === Enums_1.TipoMovimento.Entrada).sort((a, b) => 1 - 2);
-            detalhes.Saidas = (yield movimentos).filter(movimento => movimento.tipo === Enums_1.TipoMovimento.Saida).sort((a, b) => 1 - 2);
+            detalhes.Saidas = (yield movimentos).filter(movimento => movimento.tipo === Number(Enums_1.TipoMovimento.Saida)).sort((a, b) => 1 - 2);
             var valoresEntrada = detalhes.Entradas.map(function (movimento) {
                 return movimento.valor.toString();
             });

@@ -2,9 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const UsuarioController_1 = require("../controller/UsuarioController");
+const AutenticacaoUsuarioController_1 = require("../controller/AutenticacaoUsuarioController");
 const usuarioRouter = (0, express_1.Router)();
 const usuarioController = new UsuarioController_1.UsuarioController();
-usuarioRouter.post("/usuario", usuarioController.handle);
-usuarioRouter.get("/usuario/recuperarpornome", usuarioController.RecuperarUsuarioPorNome);
-usuarioRouter.get("/usuario/recuperartodos", usuarioController.RecuperarUsuarioTodos);
+const autenticarUsuarioController = new AutenticacaoUsuarioController_1.AutenticacaoUsuarioController();
+usuarioRouter.post("/", usuarioController.handle);
+usuarioRouter.get("/recuperarpornome", usuarioController.RecuperarUsuarioPorNome);
+usuarioRouter.get("/recuperartodos", usuarioController.RecuperarUsuarioTodos);
+usuarioRouter.post("/Autenticar", autenticarUsuarioController.handle);
 exports.default = usuarioRouter;

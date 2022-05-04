@@ -28,4 +28,4 @@ app.use((err, request, response, next) => {
         message: "Internal Server Error",
     });
 });
-app.listen(process.env.PORT || 5432, () => console.log("Server is running. Porta", process.env.PORT));
+app.listen(process.env.PORT || 5000, () => console.log("Server is running. Porta", process.env.PORT));

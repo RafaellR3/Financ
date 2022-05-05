@@ -9,6 +9,7 @@ interface IMovimentoNovo{
     valor: number;
     tipo: TipoMovimento;
     datavencto: string;
+    idcategoria: string;
 }
 
 interface IMovimentoCodigo{
@@ -20,7 +21,7 @@ interface IPagarMovimento{
 }
 
 class UpdateMovimentoService{
-    async execute({  idmovimento, idmes, descricao, valor, tipo, datavencto}: IMovimentoNovo){
+    async execute({  idmovimento, idmes, descricao, valor, tipo, datavencto, idcategoria}: IMovimentoNovo){
         const movimentoRepository = getCustomRepository(MovimentoRepositories);
         if (!descricao){
             throw new Error("Informe uma descrição!");
@@ -40,7 +41,8 @@ class UpdateMovimentoService{
                 idmes: idmes, 
                 valor: valor,
                 tipo: tipo,
-                datavencto: datavencto
+                datavencto: datavencto,
+                idcategoria: idcategoria
             });
 
         return movimento;

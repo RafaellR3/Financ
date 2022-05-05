@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, Column, JoinColumn, ManyToOne } from "typeorm";
+import { Entity, PrimaryColumn, Column, JoinColumn, ManyToOne, OneToOne, JoinTable, OneToMany } from "typeorm";
 import { Mes } from "../entity/Mes";
 import { v4 as uuid } from "uuid";
 import {TipoMovimento, StatusMovto} from "./enum/Enums";
@@ -57,5 +57,6 @@ class Movimento {
         }
     }
 }
+
 export { Movimento };
 

@@ -2,6 +2,8 @@ import { Double, getCustomRepository } from "typeorm";
 import { MovimentoRepositories } from "../../repositories/MovimentoRepositories";
 import { StatusMovto, TipoMovimento } from "../../entity/enum/Enums";
 import { Movimento } from "../../entity/Movimento";
+import { Categoria } from "../../entity/Categoria";
+import { CategoriaRepositories } from "../../repositories/CategoriaRepositories";
 
 interface IMovimento {
     idmovimento: string;
@@ -9,7 +11,15 @@ interface IMovimento {
     tipo: TipoMovimento;
     valor: number;
     status: StatusMovto;
-    DataVencto: Date;
+    datavencto: Date;
+    idcategoria: string;
+    categoria: Categoria;
+}
+
+interface ICategoria{
+    idcategoria: string;
+    descricao: string;
+    tipo: TipoMovimento;
 }
 
 interface IListaDetalhes {
@@ -19,8 +29,8 @@ interface IListaDetalhes {
     totalPago: number;
     saldoAtual: number;
     faltaPagar: number;
-    Entradas: Movimento[];
-    Saidas: Movimento[];
+    Entradas: IMovimento[];
+    Saidas: IMovimento[];
 
     
 }
@@ -70,8 +80,7 @@ class RecuperarDetalhesMovto {
 
     async execute(_idMes: string) {
         const movimentoRepository = getCustomRepository(MovimentoRepositories);
-        const movimentos = await movimentoRepository.find({
-            where: { idmes: _idMes },
+        const movimentos = await movimentoRepository.find({relations:["categoria"],  where: { idmes: _idMes }
         })
 
         const detalhes = {} as IListaDetalhes;

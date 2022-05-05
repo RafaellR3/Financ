@@ -8,10 +8,11 @@ interface IMovimentoRequest{
     valor: number;
     tipo: TipoMovimento;
     datavencto: string;
+    idcategoria: string;
 }
 
 class CreateMovimentoService{
-    async execute({  idmes, descricao, valor, tipo, datavencto}: IMovimentoRequest){
+    async execute({  idmes, descricao, valor, tipo, datavencto, idcategoria}: IMovimentoRequest){
         const movimentoRepository = getCustomRepository(MovimentoRepositories);
         if (!descricao){
             throw new Error("Informe uma descrição!");
@@ -26,7 +27,7 @@ class CreateMovimentoService{
         }
         
         const movimento = movimentoRepository.create({
-            idmes, descricao, valor, tipo, datavencto
+            idmes, descricao, valor, tipo, datavencto, idcategoria
         });
 
         await movimentoRepository.save(movimento);

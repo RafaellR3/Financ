@@ -67,8 +67,7 @@ class RecuperarDetalhesMovto {
     execute(_idMes) {
         return __awaiter(this, void 0, void 0, function* () {
             const movimentoRepository = (0, typeorm_1.getCustomRepository)(MovimentoRepositories_1.MovimentoRepositories);
-            const movimentos = yield movimentoRepository.find({
-                where: { idmes: _idMes },
+            const movimentos = yield movimentoRepository.find({ relations: ["categoria"], where: { idmes: _idMes }
             });
             const detalhes = {};
             detalhes.idmes = _idMes;

@@ -3,6 +3,7 @@ import { AutenticacaoUsuarioController} from "./controller/AutenticacaoUsuarioCo
 import { Usuario } from "./entity/Usuario";
 import { VerificaAutenticacao } from "./middleware/VerificaAutenticacao";
 import { VerificaPermissao } from "./middleware/VerificaPermissao";
+import categoriaRouter from "./routes/categoria.routes";
 import mesRouter from "./routes/mes.routes";
 import movimentoRouter from "./routes/movimento.route";
 import usuarioRouter from "./routes/usuario.route";
@@ -19,6 +20,7 @@ routes.use(VerificaAutenticacao);
 routes.use('/mes', mesRouter);
 routes.use('/movimento', movimentoRouter);
 routes.use('/usuario', usuarioRouter);
+routes.use('/categoria', categoriaRouter);
 
 export default routes;
 

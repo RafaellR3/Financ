@@ -10,18 +10,18 @@ import { RecuperarTodos,
 
 class MovimentoController {
   async handle(request: Request, response: Response) {
-    const { idmes, descricao, valor, tipo, datavencto } = request.body;
+    const { idmes, descricao, valor, tipo, datavencto, idcategoria } = request.body;
 
     const createMovimentoService = new CreateMovimentoService();
-    const movimento = await createMovimentoService.execute({ idmes, descricao, valor, tipo, datavencto });
+    const movimento = await createMovimentoService.execute({ idmes, descricao, valor, tipo, datavencto, idcategoria });
     return response.json(movimento);
   }
 
   async Editar( request: Request, response: Response) {
-    const {idmes, descricao, valor, tipo, datavencto } = request.body;
+    const {idmes, descricao, valor, tipo, datavencto, idcategoria } = request.body;
     const idmovimento = request.params.id
     const updateMovimentoService = new UpdateMovimentoService();
-    const movimento = await updateMovimentoService.execute({ idmovimento, idmes, descricao, valor, tipo, datavencto });
+    const movimento = await updateMovimentoService.execute({ idmovimento, idmes, descricao, valor, tipo, datavencto, idcategoria });
     
     return response.json(movimento);
   }

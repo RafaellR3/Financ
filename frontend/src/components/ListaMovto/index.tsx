@@ -23,7 +23,7 @@ const ListaMovto = ({ idMes }: MainProps) => {
     const [descricaoEntrada, setDescricaoEntrada] = useState('');
     const [valorEntrada, setValorEntrada] = useState('');
     const [isModalVisible , setIsModalVisible] = useState(false);
-    const [movimento, setMovimento] = useState<Movimento>({idmovimento:'', datavencto:'', descricao:'', idmes: idMes, status: '0', tipo:'0', valor: 0 })
+    const [movimento, setMovimento] = useState<Movimento>({idmovimento:'', datavencto:'', descricao:'', idmes: idMes, status: '0', tipo:'0', valor: 0, idcategoria: '' })
     const [detalhes, setDetalhes] = useState<DetalhesMovto>({
         idMes: '',
         totalEntradas: 0,

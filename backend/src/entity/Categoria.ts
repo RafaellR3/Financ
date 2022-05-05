@@ -1,6 +1,7 @@
-import {Entity, PrimaryColumn, Column} from "typeorm";
+import {Entity, PrimaryColumn, Column, OneToOne, JoinColumn} from "typeorm";
 import {v4 as uuid} from "uuid"
 import { TipoMovimento } from "./enum/Enums";
+import { Movimento } from "./Movimento";
 
 @Entity("categoria")
 class Categoria {
@@ -17,7 +18,7 @@ class Categoria {
         default: TipoMovimento.Entrada
     })
     tipo: TipoMovimento;
-
+  
    constructor() {
        if(!this.idcategoria){
            this.idcategoria = uuid();

@@ -17,4 +17,5 @@ export type Movimento = {
     status: string;
     datavencto: string;
     idmes: string;
+    idcategoria: string;
 }

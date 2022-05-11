@@ -14,7 +14,7 @@ const typeorm_1 = require("typeorm");
 const Enums_1 = require("../../entity/enum/Enums");
 const MovimentoRepositories_1 = require("../../repositories/MovimentoRepositories");
 class UpdateMovimentoService {
-    execute({ idmovimento, idmes, descricao, valor, tipo, datavencto }) {
+    execute({ idmovimento, idmes, descricao, valor, tipo, datavencto, idcategoria }) {
         return __awaiter(this, void 0, void 0, function* () {
             const movimentoRepository = (0, typeorm_1.getCustomRepository)(MovimentoRepositories_1.MovimentoRepositories);
             if (!descricao) {
@@ -31,7 +31,8 @@ class UpdateMovimentoService {
                 idmes: idmes,
                 valor: valor,
                 tipo: tipo,
-                datavencto: datavencto
+                datavencto: datavencto,
+                idcategoria: idcategoria
             });
             return movimento;
         });

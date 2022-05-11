@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const Mes_1 = require("../entity/Mes");
 const uuid_1 = require("uuid");
 const Enums_1 = require("./enum/Enums");
+const Categoria_1 = require("./Categoria");
 let Movimento = class Movimento {
     constructor() {
         if (!this.idmovimento) {
@@ -49,7 +50,7 @@ __decorate([
         enum: Enums_1.TipoMovimento,
         default: Enums_1.TipoMovimento.Entrada
     }),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], Movimento.prototype, "tipo", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
@@ -65,8 +66,17 @@ __decorate([
         enum: Enums_1.StatusMovto,
         default: Enums_1.StatusMovto.Aberto
     }),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], Movimento.prototype, "status", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Movimento.prototype, "idcategoria", void 0);
+__decorate([
+    (0, typeorm_1.JoinColumn)({ name: "idcategoria" }),
+    (0, typeorm_1.ManyToOne)(() => Categoria_1.Categoria),
+    __metadata("design:type", Categoria_1.Categoria)
+], Movimento.prototype, "categoria", void 0);
 Movimento = __decorate([
     (0, typeorm_1.Entity)("movimento"),
     __metadata("design:paramtypes", [])

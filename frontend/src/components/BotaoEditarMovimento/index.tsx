@@ -15,7 +15,7 @@ function BotaoEditarMovimento ({ idmovimento, status, descricao, Editar }: MainP
     }
 
     return (
-        <img onClick={onClick} src={editar} alt="FinancR3" width="20" /> 
+        <img onClick={onClick} src={editar} alt="FinancR3" width="15" /> 
     )
 }
 export default BotaoEditarMovimento;

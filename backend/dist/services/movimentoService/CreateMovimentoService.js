@@ -13,11 +13,17 @@ exports.CreateMovimentoService = void 0;
 const typeorm_1 = require("typeorm");
 const MovimentoRepositories_1 = require("../../repositories/MovimentoRepositories");
 class CreateMovimentoService {
-    execute({ idmes, descricao, valor, tipo, datavencto }) {
+    execute({ idmes, descricao, valor, tipo, datavencto, idcategoria }) {
         return __awaiter(this, void 0, void 0, function* () {
             const movimentoRepository = (0, typeorm_1.getCustomRepository)(MovimentoRepositories_1.MovimentoRepositories);
             if (!descricao) {
                 throw new Error("Informe uma descrição!");
+            }
+            if (!valor) {
+                throw new Error("Informe um valor!");
+            }
+            if (!idcategoria) {
+                throw new Error("Não foi informado nenhama categoria!");
             }
             const movimentoAlreadyExists = yield movimentoRepository.findOne({
                 idmes, descricao
@@ -26,7 +32,7 @@ class CreateMovimentoService {
                 throw new Error("Movimento já existe!");
             }
             const movimento = movimentoRepository.create({
-                idmes, descricao, valor, tipo, datavencto
+                idmes, descricao, valor, tipo, datavencto, idcategoria
             });
             yield movimentoRepository.save(movimento);
             return movimento;

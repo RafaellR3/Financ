@@ -1,3 +1,4 @@
+import DonutChart from "components/DonutChart";
 import Footer from "components/Footer";
 import NavBar from "components/NavBar";
 import { Link } from "react-router-dom";
@@ -12,6 +13,8 @@ function Home() {
                     <hr />
                 </div>
                 <Link className = "btn btn-primary btn-lg" to ="/dashboard"> Acessar o Dashboard</Link>
+
+                <DonutChart/>
             </div> 
             <Footer/>
         </>

@@ -1,7 +1,8 @@
-import { Entity, PrimaryColumn, Column, JoinColumn, ManyToOne } from "typeorm";
+import { Entity, PrimaryColumn, Column, JoinColumn, ManyToOne, OneToOne, JoinTable, OneToMany } from "typeorm";
 import { Mes } from "../entity/Mes";
 import { v4 as uuid } from "uuid";
 import {TipoMovimento, StatusMovto} from "./enum/Enums";
+import { Categoria } from "./Categoria";
 
 @Entity("movimento")
 class Movimento {
@@ -42,6 +43,13 @@ class Movimento {
     })
     status: StatusMovto;
 
+    @Column()
+    idcategoria: string;
+
+    @JoinColumn({name: "idcategoria"})
+    @ManyToOne(()=> Categoria)
+    categoria: Categoria;
+
     constructor() {
         if (!this.idmovimento) {
             this.idmovimento = uuid();
@@ -49,5 +57,6 @@ class Movimento {
         }
     }
 }
+
 export { Movimento };
 

@@ -1,4 +1,5 @@
 import { getCustomRepository } from "typeorm";
+import { Categoria } from "../../entity/Categoria";
 import { TipoMovimento } from "../../entity/enum/Enums";
 import { MovimentoRepositories } from "../../repositories/MovimentoRepositories";
 
@@ -8,14 +9,15 @@ interface IMovimentoRequest{
     valor: number;
     tipo: TipoMovimento;
     datavencto: string;
+    idcategoria: string;
 }
 
 class CreateMovimentoService{
-    async execute({  idmes, descricao, valor, tipo, datavencto}: IMovimentoRequest){
+    async execute({  idmes, descricao, valor, tipo, datavencto, idcategoria}: IMovimentoRequest){
         const movimentoRepository = getCustomRepository(MovimentoRepositories);
-        if (!descricao){
-            throw new Error("Informe uma descrição!");
-        }
+        if (!descricao){ throw new Error("Informe uma descrição!"); }
+        if (!valor){ throw new Error("Informe um valor!"); }
+        if (!idcategoria){ throw new Error("Não foi informado nenhama categoria!"); }
 
         const movimentoAlreadyExists = await movimentoRepository.findOne({
             idmes, descricao
@@ -26,7 +28,7 @@ class CreateMovimentoService{
         }
         
         const movimento = movimentoRepository.create({
-            idmes, descricao, valor, tipo, datavencto
+            idmes, descricao, valor, tipo, datavencto, idcategoria
         });
 
         await movimentoRepository.save(movimento);

@@ -16,3 +16,8 @@ export interface IMovimento{
     status: string;
     DataVencto: Date;
 }
+
+export interface IMovimentoPorCategoria{
+    categoria_descricao: string;
+    sum: number;
+}

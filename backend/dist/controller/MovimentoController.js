@@ -17,18 +17,18 @@ const FindMovimentoService_1 = require("../services/movimentoService/FindMovimen
 class MovimentoController {
     handle(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { idmes, descricao, valor, tipo, datavencto } = request.body;
+            const { idmes, descricao, valor, tipo, datavencto, idcategoria } = request.body;
             const createMovimentoService = new CreateMovimentoService_1.CreateMovimentoService();
-            const movimento = yield createMovimentoService.execute({ idmes, descricao, valor, tipo, datavencto });
+            const movimento = yield createMovimentoService.execute({ idmes, descricao, valor, tipo, datavencto, idcategoria });
             return response.json(movimento);
         });
     }
     Editar(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { idmes, descricao, valor, tipo, datavencto } = request.body;
+            const { idmes, descricao, valor, tipo, datavencto, idcategoria } = request.body;
             const idmovimento = request.params.id;
             const updateMovimentoService = new UpdateMovimentoService_1.UpdateMovimentoService();
-            const movimento = yield updateMovimentoService.execute({ idmovimento, idmes, descricao, valor, tipo, datavencto });
+            const movimento = yield updateMovimentoService.execute({ idmovimento, idmes, descricao, valor, tipo, datavencto, idcategoria });
             return response.json(movimento);
         });
     }
@@ -93,6 +93,13 @@ class MovimentoController {
             const codigoMes = request.params.idmes;
             const recuperarDetalhesMovto = new FindMovimentoService_1.RecuperarDetalhesMovto();
             const movimentos = yield recuperarDetalhesMovto.execute(codigoMes);
+            return response.json(movimentos);
+        });
+    }
+    RecuperarSaidasPorCategoria(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const recuperarSaidasPorCategoria = new FindMovimentoService_1.RecuperarSaidasPorCategoria();
+            const movimentos = yield recuperarSaidasPorCategoria.execute();
             return response.json(movimentos);
         });
     }

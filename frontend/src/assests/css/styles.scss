@@ -2,6 +2,14 @@
 :root {
     --color-primary: #FF8400;
 }
+.monetario{
+    text-align: right;
+    width: 10px;
+}
+
+.form-control{
+    font-size: 13px;
+}
 
 html, body {
     height: 100%;
@@ -40,15 +48,18 @@ html, body {
 }
 
 .table th{
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .table td {
     font-style: bold;
+    font-size: 13px;
+    background-color: 'rgba(50, 115, 220, 0.3)';
 }
 
 .detalhes{
-    text-align: right;
+    text-align: left;
+    font-style: bold;
 }
 
 .modal{

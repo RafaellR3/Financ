@@ -6,22 +6,23 @@ import { RecuperarTodos,
          RecuperarMovimentoPorMes, 
          RecuperarMovimentoPorTipo, 
          RecuperarDetalhesMovto,
-         RecuperarMovimentoPorId } from "../services/movimentoService/FindMovimentoService"
+         RecuperarMovimentoPorId,
+         RecuperarSaidasPorCategoria } from "../services/movimentoService/FindMovimentoService"
 
 class MovimentoController {
   async handle(request: Request, response: Response) {
-    const { idmes, descricao, valor, tipo, datavencto } = request.body;
+    const { idmes, descricao, valor, tipo, datavencto, idcategoria } = request.body;
 
     const createMovimentoService = new CreateMovimentoService();
-    const movimento = await createMovimentoService.execute({ idmes, descricao, valor, tipo, datavencto });
+    const movimento = await createMovimentoService.execute({ idmes, descricao, valor, tipo, datavencto, idcategoria });
     return response.json(movimento);
   }
 
   async Editar( request: Request, response: Response) {
-    const {idmes, descricao, valor, tipo, datavencto } = request.body;
+    const {idmes, descricao, valor, tipo, datavencto, idcategoria } = request.body;
     const idmovimento = request.params.id
     const updateMovimentoService = new UpdateMovimentoService();
-    const movimento = await updateMovimentoService.execute({ idmovimento, idmes, descricao, valor, tipo, datavencto });
+    const movimento = await updateMovimentoService.execute({ idmovimento, idmes, descricao, valor, tipo, datavencto, idcategoria });
     
     return response.json(movimento);
   }
@@ -86,6 +87,13 @@ class MovimentoController {
     const codigoMes = request.params.idmes;
     const recuperarDetalhesMovto = new RecuperarDetalhesMovto();
     const movimentos = await recuperarDetalhesMovto.execute(codigoMes);
+
+    return response.json(movimentos);
+  }
+
+  async RecuperarSaidasPorCategoria(request: Request, response: Response) {
+    const recuperarSaidasPorCategoria =new RecuperarSaidasPorCategoria();
+    const movimentos = await recuperarSaidasPorCategoria.execute();
 
     return response.json(movimentos);
   }

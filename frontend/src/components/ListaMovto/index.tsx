@@ -7,6 +7,7 @@ import PagarMovimento from "components/PagarMovimento";
 import BotaoEditarMovimento from "components/BotaoEditarMovimento";
 import EditarMovimento from "components/EditarMovimento";
 import novo from "../../assests/img/novo.png";
+import {Categoria } from "types/Categoria";
 
 interface MainProps {
     idMes: string;
@@ -18,12 +19,16 @@ const ListaMovto = ({ idMes }: MainProps) => {
         headers: {'Authorization': 'Bearer ' + localStorage.getItem("token") }
     }
 
+    const [categoriasEntrada, setCategoriasEntrada] = useState<Categoria[]>();
+    const [categoriasSaidas, setCategoriasSaidas] = useState<Categoria[]>();
+    const [categoriaEntrada, setCategoriaEntrada] = useState('');
+    const [categoriaSaida, setCategoriaSaida] = useState('');
     const [descricaoSaida, setDescricaoSaida] = useState('');
     const [valorSaida, setValorSaida] = useState('');
     const [descricaoEntrada, setDescricaoEntrada] = useState('');
     const [valorEntrada, setValorEntrada] = useState('');
     const [isModalVisible , setIsModalVisible] = useState(false);
-    const [movimento, setMovimento] = useState<Movimento>({idmovimento:'', datavencto:'', descricao:'', idmes: idMes, status: '0', tipo:'0', valor: 0 })
+    const [movimento, setMovimento] = useState<Movimento>({idmovimento:'', datavencto:'', descricao:'', idmes: idMes, status: '0', tipo:'0', valor: 0, idcategoria: ''})
     const [detalhes, setDetalhes] = useState<DetalhesMovto>({
         idMes: '',
         totalEntradas: 0,
@@ -34,26 +39,45 @@ const ListaMovto = ({ idMes }: MainProps) => {
         Entradas: [],
         Saidas: []
     });
-
+    
     const [dados, setDados] = useState({});
     useEffect(() => {
         axios.get(`${Api}/Movimento/RecuperarDetalhesMovto/${idMes}`, config)
             .then(response => {
                 setDetalhes(response.data)
             });
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [idMes,dados]);
+
+    useEffect(() => {
+        axios.get(`${Api}/Categoria/RecuperarPorTipo/0`, config)
+            .then((response) => {
+                setCategoriasEntrada(response.data)
+                setCategoriaEntrada(response.data[0].idcategoria)
+            })
+            .catch((error) => {
+                window.alert(`Erro ao carregar categorias de entrada. Erro: ${error}`)})
+
+        axios.get(`${Api}/Categoria/RecuperarPorTipo/1`, config)
+        .then((response) => {
+            setCategoriasSaidas(response.data)
+            setCategoriaSaida(response.data[0].idcategoria)
+        })
+        .catch((error) => {
+            window.alert(`Erro ao carregar categorias de saídas. Erro: ${error}`)})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const atualizadaDados = (detalhes: DetalhesMovto) => {
         setDados(detalhes)
     }
 
     function inserirSaida(){
-        postinserirSaida(idMes, descricaoSaida, valorSaida, '1', new Date().toString())
+        postinserirSaida(idMes, descricaoSaida, valorSaida, '1', categoriaSaida, new Date().toString())
     }
-    const postinserirSaida = useCallback(async (idmes: string, descricao: string, valor: string, tipo: string, datavencto: string) => {
-        await axios.post(`${Api}/Movimento`, { idmes, descricao, valor, tipo, datavencto }, config)
+
+    const postinserirSaida = useCallback(async (idmes: string, descricao: string, valor: string, tipo: string, idcategoria: string, datavencto: string ) => {
+        await axios.post(`${Api}/Movimento`, { idmes, descricao, valor, tipo, datavencto, idcategoria }, config)
         .then((response) => {
             atualizadaDados(detalhes)})
         .catch((error) => {
@@ -65,10 +89,10 @@ const ListaMovto = ({ idMes }: MainProps) => {
     }, [detalhes]);
 
     function inserirEntrada(){
-        postinserirEntrada(idMes, descricaoEntrada, valorEntrada, '0', new Date().toString())
+        postinserirEntrada(idMes, descricaoEntrada, valorEntrada, '0', categoriaEntrada, new Date().toString())
     }
-    const postinserirEntrada = useCallback(async (idmes: string, descricao: string, valor: string, tipo: string, datavencto: string) => {
-        await axios.post(`${Api}/Movimento`, { idmes, descricao, valor, tipo, datavencto }, config)
+    const postinserirEntrada = useCallback(async (idmes: string, descricao: string, valor: string, tipo: string, idcategoria: string, datavencto: string) => {
+        await axios.post(`${Api}/Movimento`, { idmes, descricao, valor, tipo, datavencto, idcategoria }, config)
         .then((response) => {
             atualizadaDados(detalhes)})
         .catch((error) => {
@@ -78,8 +102,9 @@ const ListaMovto = ({ idMes }: MainProps) => {
         setValorEntrada('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [detalhes]);
-    const atualizarMovimento = useCallback(async (idmovimento: string, idmes: string, descricao: string, valor: string, tipo: string, datavencto: string) => {
-        await axios.put(`${Api}/Movimento/Editar/${idmovimento}`, { idmes, descricao, valor, tipo, datavencto }, config)
+
+    const atualizarMovimento = useCallback(async (idmovimento: string, idmes: string, descricao: string, valor: string, tipo: string, datavencto: string, idcategoria: string) => {
+        await axios.put(`${Api}/Movimento/Editar/${idmovimento}`, { idmes, descricao, valor, tipo, datavencto, idcategoria }, config)
         .then((response) => {
             atualizadaDados(detalhes)})
         .catch((error) => {
@@ -94,7 +119,6 @@ const ListaMovto = ({ idMes }: MainProps) => {
                 .then(response => {
                     setDetalhes(response.data)
                 });
-
         }, []);
     }
 
@@ -157,25 +181,29 @@ const ListaMovto = ({ idMes }: MainProps) => {
             deletarMovimento(_idMovimento);
         }
     }
-
+    
     const _editarMovimento = <EditarMovimento movimento={movimento}  atualizarMovimento={atualizarMovimento} onClose={() =>setIsModalVisible(false)}/>;
     
     return (
         <>
             {AtualizarDetalhes}
-            <div className="container">                    
-                <div className="col-lg table-striped text-center" >
+            <div className="container" >                    
+                <div className="col-lg table-striped text-center"  style={{ backgroundColor: 'rgba(50, 115, 220, 0.3)'}} >
                 <table className="table table-striped table-lg table-borderless">
-                    <thead  className= "thead-dark">
-                        <th className = "totais" ><h5 style={{ color: 'blue' }}> SALDO ATUAL</h5></th>
-                        <th className = "totais" ><h5 style={{ color: 'red' }}>EM ABERTO</h5></th>
-                        <th></th>
-                        <th></th>
+                    <thead  className= "thead-dark" >
+                        <th className = "totais" ><h5 >Entradas</h5></th>
+                        <th className = "totais" ><h5 >Saídas</h5></th>
+                        <th className = "totais" ><h5 >Balanço</h5></th>
+                        <th className = "totais" ><h5 >Saldo atual</h5></th>
+                        <th className = "totais" ><h5 >Em aberto</h5></th>
                         <th></th>
                     </thead>
                     <tbody>
-                        <td className = "totais" width="20%" ><b>{detalhes.saldoAtual.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} </b></td>
-                        <td className = "totais" width="20%"><b>{(detalhes.totalSaidas - detalhes.totalPago).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</b></td>
+                        <td className = "totais" width="20%" style={{ color: 'green' }} ><b>{detalhes.totalEntradas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} </b></td>
+                        <td className = "totais" width="20%" style={{ color: 'red' }}><b>{detalhes.totalSaidas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</b></td>
+                        <td className = "totais" width="20%" style={(detalhes.totalEntradas - detalhes.totalSaidas) < 0 ?{ color: 'red' }: { color: 'green' }}><b>{(detalhes.totalEntradas - detalhes.totalSaidas).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</b></td>
+                        <td className = "totais" width="20%" style={{ color: 'green' }} ><b>{detalhes.saldoAtual.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} </b></td>
+                        <td className = "totais" width="20%" style={{ color: 'red' }}><b>{(detalhes.totalSaidas - detalhes.totalPago).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</b></td>
                     </tbody>
                 </table>
                  <hr></hr>  
@@ -184,77 +212,73 @@ const ListaMovto = ({ idMes }: MainProps) => {
 
                     {/* ----------ENTRADAS----------------- */}
                     <div className="col-lg table-striped text-center">
-                        <h5 style={{ color: 'green' }} >ENTRADAS</h5>
-                        <table className="table table-striped table-lg thead-dark">
+                        <h5 style={{ backgroundColor: 'rgba(50, 115, 220, 0.3)'}}>Entradas</h5>
+                        <table className="table table-striped table-sm text-center" >
                             <thead >
                                 <tr key={detalhes.idMes}>
-                                    <th >Total: </th>
-                                    <th >{detalhes.totalEntradas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</th>
-                                    <th></th>
+                                    <th>Descrição</th>
+                                    <th>Categoria</th>
+                                    <th>Valor</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody className="detalhes">
+                                <tr>
+                                    <td>
+                                        <input  id="idDescricao"
+                                                className="btn btn-light btn-sm left border" 
+                                                placeholder="Descrição"  
+                                                type="text"  
+                                                value = {descricaoEntrada}
+                                                onChange={(e) => setDescricaoEntrada(e.target.value)} />
+                                    </td>
+                                    <td><select className="form-control" value={categoriaEntrada} onChange={e => setCategoriaEntrada(e.target.value)}>
+                                            {(categoriasEntrada && categoriasEntrada.length > 0) && categoriasEntrada.map((item) =>(
+                                                <option value={item.idcategoria}> {item.descricao} </option>
+                                            ))}
+                                        </select>
+                                    </td> 
+                            
+                                    <td>
+                                        <input className="btn btn-light btn-sm left border" 
+                                            placeholder="Valor" 
+                                            type='number' value={valorEntrada} 
+                                            onChange={(e) => setValorEntrada(e.target.value)} />
+                                    </td>
+                                    <td className="btn btn-secondary"  width="40px" onClick={inserirEntrada} >
+                                        <img src={novo} alt="FinancR3" width="20" />
+                                    </td>    
+                                </tr>
                                 {detalhes.Entradas.sort().map(item => (
                                     <tr key={item.idmovimento}>
                                         <td >{item.descricao}</td>
-                                        <td className="monetario">{item.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
-                                        <td className="btn btn-secondary" width="30px">{<BotaoEditarMovimento idmovimento={item.idmovimento} status={item.status} descricao={item.descricao} Editar={Editar}/>} </td>
-                                        <td className="btn btn-secondary" width="30px" onClick={() => ConfirmacaoDeletar(item.idmovimento, item.status, item.descricao)}>
-                                            <img src={deletar} alt="FinancR3" width="15" />
+                                        <td >{item.categoria?.descricao}</td>
+                                        <td width="10%" className="monetario">R$ {item.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
+                                        <td className="btn btn-secondary" width="20px">{<BotaoEditarMovimento idmovimento={item.idmovimento} status={item.status} descricao={item.descricao} Editar={Editar}/>} </td>
+                                        <td className="btn btn-secondary" width="20px" onClick={() => ConfirmacaoDeletar(item.idmovimento, item.status, item.descricao)}>
+                                            <img src={deletar} alt="FinancR3" width="10" />
                                         </td>
                                     </tr>
                                 ))}                                
-                            <tr>
-                                <td>
-                                    <input  id="idDescricao"
-                                            className="btn btn-light btn-sm left border" 
-                                            placeholder="Descrição"  
-                                            type="text"  
-                                            value = {descricaoEntrada}
-                                            onChange={(e) => setDescricaoEntrada(e.target.value)} />
-                                </td>
-                                <td>
-                                    <input className="btn btn-light btn-sm left border" 
-                                        placeholder="Valor" 
-                                        type='number' value={valorEntrada} 
-                                        onChange={(e) => setValorEntrada(e.target.value)} />
-                                </td>
-                                <td className="btn btn-secondary"  width="30px" onClick={inserirEntrada} >
-                                    <img src={novo} alt="FinancR3" width="16" />
-                                </td>  
-                                <td >
-                                    
-                                </td>    
-                            </tr>
+                           
                             </tbody>
                         </table>
                     </div>
                     {/* ----------SAIDAS----------------- */}
                     <div className="col-sm table-striped text-center">
-                        <h5 style={{ color: 'red' }} >SAÍDAS</h5>
-                        <table className="table table-striped table-lg">
-                            <thead>
+                        <h5 style={{ backgroundColor: 'rgba(50, 115, 220, 0.3)'}}>Saídas</h5>
+                        <table className="table table-striped table-sm text-center">
+                            <thead >
                                 <tr key={detalhes.idMes}>
-                                    <th>Total: </th>
-                                    <th >{detalhes.totalSaidas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</th>
+                                    <th>Descrição</th>
+                                    <th>Categoria</th>
+                                    <th>Valor</th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody className="detalhes">
-                                {detalhes.Saidas.sort().map(item => (
-                                    <tr key={item.idmovimento}>
-                                        <td >{item.descricao} </td>
-                                        <td className="monetario">{item.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
-                                        <td className="btn btn-secondary" width="30px">{<PagarMovimento idmovimento={item.idmovimento} status={item.status} descricao={item.descricao} Confirmacao={Confirmacao}/>} </td>
-                                        <td className="btn btn-secondary" width="30px">{<BotaoEditarMovimento idmovimento={item.idmovimento} status={item.status} descricao={item.descricao} Editar={Editar}/>} </td>
-                                        <td className="btn btn-secondary" width="30px" onClick={() => ConfirmacaoDeletar(item.idmovimento, item.status, item.descricao)}>
-                                            <img src={deletar} alt="FinancR3" width="15" />
-                                        </td>
-                                    </tr>
-                                ))}
                                 <tr>
                                     <td>
                                         <input  id="idDescricao"
@@ -264,18 +288,35 @@ const ListaMovto = ({ idMes }: MainProps) => {
                                                 value = {descricaoSaida}
                                                 onChange={(e) => setDescricaoSaida(e.target.value)} />
                                     </td>
-                                    <td>
-                                        <input className="btn btn-light btn-sm left border" 
+                                    <td><select className="form-control" value={categoriaSaida} onChange={e => setCategoriaSaida(e.target.value)}>
+                                        {(categoriasSaidas && categoriasSaidas.length > 0) && categoriasSaidas.map((item) =>(
+                                            <option value={item.idcategoria}> {item.descricao} </option>
+                                        ))}
+                                    </select>
+                                    </td> 
+                                    <td >
+                                        <input className="btn btn-light btn-sm left border" width="30px"
                                             placeholder="Valor" 
                                             type='number' value={valorSaida} 
                                             onChange={(e) => setValorSaida(e.target.value)} />
                                     </td>
-                                    <td className="btn btn-secondary"  width="30px" onClick={inserirSaida} >
-                                        <img src={novo} alt="FinancR3" width="15" />
-                                    </td>  
-                                    <td></td> 
-                                    <td></td>      
+                                    
+                                    <td className="btn btn-secondary"  width="60px" onClick={inserirSaida} >
+                                        <img src={novo} alt="FinancR3" width="20" />
+                                    </td>       
                                 </tr>
+                                {detalhes.Saidas.sort().map(item => (
+                                    <tr key={item.idmovimento}>
+                                        <td >{item.descricao} </td>
+                                        <td >{item.categoria?.descricao} </td>
+                                        <td className="monetario"  width="10px" >R$ {item.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
+                                        <td className="btn btn-secondary" width="20px">{<PagarMovimento idmovimento={item.idmovimento} status={item.status} descricao={item.descricao} Confirmacao={Confirmacao}/>} </td>
+                                        <td className="btn btn-secondary" width="20px">{<BotaoEditarMovimento idmovimento={item.idmovimento} status={item.status} descricao={item.descricao} Editar={Editar}/>} </td>
+                                        <td className="btn btn-secondary" width="20px" onClick={() => ConfirmacaoDeletar(item.idmovimento, item.status, item.descricao)}>
+                                            <img src={deletar} alt="FinancR3" width="10" />
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>

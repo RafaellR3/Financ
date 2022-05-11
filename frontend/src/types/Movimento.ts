@@ -1,3 +1,5 @@
+import { Categoria } from "./Categoria";
+
 export type DetalhesMovto = {
     idMes: string;
     totalEntradas: number;
@@ -17,4 +19,6 @@ export type Movimento = {
     status: string;
     datavencto: string;
     idmes: string;
+    idcategoria: string;
+    categoria?: Categoria;
 }

@@ -11,7 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AutenticacaoUsuarioService = void 0;
 const typeorm_1 = require("typeorm");
-const bcryptjs_1 = require("bcryptjs");
 const jsonwebtoken_1 = require("jsonwebtoken");
 const UsuarioRepositories_1 = require("../../repositories/UsuarioRepositories");
 class AutenticacaoUsuarioService {
@@ -22,18 +21,17 @@ class AutenticacaoUsuarioService {
                 email,
             });
             if (!usuario) {
-                throw new Error("Email/senha incorreta");
+                throw new Error("Não foi encontrado nenhum usuário com este e-mail!");
             }
-            const senhaMatch = yield (0, bcryptjs_1.compare)(senha, usuario.senha);
-            if (!senhaMatch) {
-                throw new Error("Email/Password incorrect");
+            if (senha !== usuario.senha) {
+                throw new Error("Senha incorreta!");
             }
             const token = (0, jsonwebtoken_1.sign)({
                 email: usuario.email,
             }, "c60791440436aa6dac1d6a7f7b84602a", //financrafaelr3
             {
                 subject: usuario.idusuario,
-                expiresIn: "1d",
+                expiresIn: "4h",
             });
             return token;
         });

@@ -10,16 +10,18 @@ type ChartData = {
 }
 
 function DonutChart() {
+    let config = {
+        headers: {'Authorization': 'Bearer ' + localStorage.getItem("token") }
+    }
 
     const [chartData, setChartData] = useState<ChartData>({ labels: [], series: [] });
 
     useEffect(() => {
-        axios.get(`${Api}/Movimento/RecuperarSaidasPorCategoria`)
+        axios.get(`${Api}/Movimento/RecuperarSaidasPorCategoria`, config)
         .then(response => {
             const data = response.data as IMovimentoPorCategoria[];
-            const myLabels = data.map(x => x.descricao);
-            const mySeries = data.map(x => x.total);
-
+            const myLabels = data.map(x => x.categoria_descricao);
+            const mySeries = data.map(x => Number(x.sum))
             setChartData({ labels: myLabels, series: mySeries });
         });
     }, []);

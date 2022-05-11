@@ -18,6 +18,6 @@ export interface IMovimento{
 }
 
 export interface IMovimentoPorCategoria{
-    descricao: string;
-    total: number;
+    categoria_descricao: string;
+    sum: number;
 }

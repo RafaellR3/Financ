@@ -20,7 +20,7 @@ class MovimentoController {
 
   async Editar( request: Request, response: Response) {
     const {idmes, descricao, valor, tipo, datavencto, idcategoria } = request.body;
-    const idmovimento = request.params.id
+    const idmovimento = request.params.id;
     const updateMovimentoService = new UpdateMovimentoService();
     const movimento = await updateMovimentoService.execute({ idmovimento, idmes, descricao, valor, tipo, datavencto, idcategoria });
     

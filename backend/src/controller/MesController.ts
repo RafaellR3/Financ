@@ -1,5 +1,5 @@
 import {Request, Response} from "express"
-import {CreateMesService} from "../services/mesService/CreateMesService"
+import {Copiar, CreateMesService} from "../services/mesService/CreateMesService"
 import {RecuperarPorCodigo, RecuperarTodos} from "../services/mesService/FindMesService"
 
 class MesController{
@@ -10,8 +10,16 @@ class MesController{
         const mes = await createMesServico.execute({nome});
         return response.json(mes);
     }  
-    
-    async RecuperarTodos(request: Request, response: Response) {
+  
+async Copiar(request: Request, response: Response) {
+        const { descricao } = request.body;
+        const  idmes  = request.params.id;
+        const copiar = new Copiar();
+        const mes = await copiar.execute(idmes, descricao);
+        return response.json(mes);
+      }  
+
+async RecuperarTodos(request: Request, response: Response) {
         const recuperarTodos = new RecuperarTodos();
         const usuario = await recuperarTodos.execute();
     

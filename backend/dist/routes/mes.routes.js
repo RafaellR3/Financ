@@ -5,5 +5,6 @@ const MesController_1 = require("../controller/MesController");
 const mesRouter = (0, express_1.Router)();
 const mesController = new MesController_1.MesController();
 mesRouter.post("/", mesController.handle);
+mesRouter.post("/Copiar/:id", mesController.Copiar);
 mesRouter.get("/recuperartodos", mesController.RecuperarTodos);
 exports.default = mesRouter;

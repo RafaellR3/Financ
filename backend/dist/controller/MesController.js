@@ -21,6 +21,15 @@ class MesController {
             return response.json(mes);
         });
     }
+    Copiar(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { descricao } = request.body;
+            const idmes = request.params.id;
+            const copiar = new CreateMesService_1.Copiar();
+            const mes = yield copiar.execute(idmes, descricao);
+            return response.json(mes);
+        });
+    }
     RecuperarTodos(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             const recuperarTodos = new FindMesService_1.RecuperarTodos();

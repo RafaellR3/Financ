@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Api } from "utils/requests";
 import novo from "../../assests/img/novo.png";
-import {Categoria } from "types/Categoria";
 
 const EditarMovimento = ({onClose = () => {}, movimento, atualizarMovimento})=> {
   let config = {

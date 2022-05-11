@@ -19,7 +19,6 @@ const ListaMovto = ({ idMes }: MainProps) => {
         headers: {'Authorization': 'Bearer ' + localStorage.getItem("token") }
     }
 
-
     const [categoriasEntrada, setCategoriasEntrada] = useState<Categoria[]>();
     const [categoriasSaidas, setCategoriasSaidas] = useState<Categoria[]>();
     const [categoriaEntrada, setCategoriaEntrada] = useState('');

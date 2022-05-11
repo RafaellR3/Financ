@@ -10,14 +10,11 @@ type ChartData = {
 }
 
 function DonutChart() {
-    let config = {
-        headers: {'Authorization': 'Bearer ' + localStorage.getItem("token") }
-    }
 
     const [chartData, setChartData] = useState<ChartData>({ labels: [], series: [] });
 
     useEffect(() => {
-        axios.get(`${Api}/Movimento/RecuperarSaidasPorCategoria`, config)
+        axios.get(`${Api}/Movimento/RecuperarSaidasPorCategoria`, {headers: {'Authorization': 'Bearer ' + localStorage.getItem("token") }})
         .then(response => {
             const data = response.data as IMovimentoPorCategoria[];
             const myLabels = data.map(x => x.categoria_descricao);

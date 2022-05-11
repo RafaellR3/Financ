@@ -96,5 +96,12 @@ class MovimentoController {
             return response.json(movimentos);
         });
     }
+    RecuperarSaidasPorCategoria(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const recuperarSaidasPorCategoria = new FindMovimentoService_1.RecuperarSaidasPorCategoria();
+            const movimentos = yield recuperarSaidasPorCategoria.execute();
+            return response.json(movimentos);
+        });
+    }
 }
 exports.MovimentoController = MovimentoController;

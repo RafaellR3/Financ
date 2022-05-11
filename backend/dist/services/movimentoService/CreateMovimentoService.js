@@ -19,6 +19,12 @@ class CreateMovimentoService {
             if (!descricao) {
                 throw new Error("Informe uma descrição!");
             }
+            if (!valor) {
+                throw new Error("Informe um valor!");
+            }
+            if (!idcategoria) {
+                throw new Error("Não foi informado nenhama categoria!");
+            }
             const movimentoAlreadyExists = yield movimentoRepository.findOne({
                 idmes, descricao
             });

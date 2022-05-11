@@ -5,7 +5,7 @@ import { TipoMovimento } from "../../entity/enum/Enums";
 
 
 class RecuperarCategoriaPorTipo {
-    async execute( tipo: TipoMovimento) {
+    async execute( tipo: string) {
 
         const categoriaRepository = getCustomRepository(CategoriaRepositories);
         const categoria = await categoriaRepository.find({

@@ -5,7 +5,7 @@ class CategoriaController{
 
     async RecuperarCategoriaPorTipo(request: Request, response: Response) 
     {
-      const {tipo} = request.body;
+      const tipo = request.params.tipo;
       const recuperarCategoriaPorNome = new RecuperarCategoriaPorTipo();
       const categoria = await recuperarCategoriaPorNome.execute(tipo);
   

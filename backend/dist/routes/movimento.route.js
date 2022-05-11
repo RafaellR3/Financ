@@ -14,4 +14,5 @@ movimentoRouter.get("/RecuperarMovimentoPorId/:id", movimentoController.Recupera
 movimentoRouter.get("/RecuperarPorMes", movimentoController.RecuperarMovimentoPorMes);
 movimentoRouter.get("/RecuperarPorTipo", movimentoController.RecuperarMovimentoPorTipo);
 movimentoRouter.get("/RecuperarDetalhesMovto/:idmes", movimentoController.RecuperarDetalhesMovto);
+movimentoRouter.get("/RecuperarSaidasPorCategoria", movimentoController.RecuperarSaidasPorCategoria);
 exports.default = movimentoRouter;

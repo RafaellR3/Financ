@@ -35,6 +35,11 @@ interface IListaDetalhes {
     
 }
 
+interface ISaidasPorCategoria{
+    descricao: string;
+    total: number;
+}
+
 class RecuperarMovimentoPorId {
     async execute(_idMovimento: string) {
 
@@ -120,8 +125,26 @@ class RecuperarDetalhesMovto {
         return detalhes;
     };
 }
+
+class RecuperarSaidasPorCategoria{
+    async execute(){
+
+        const movimentos = await getCustomRepository(MovimentoRepositories)
+                         .createQueryBuilder("movimento")
+                         .innerJoinAndSelect(Categoria, "categoria", "categoria.idcategoria = movimento.idcategoria")
+                         .select("categoria.descricao")
+                         .addSelect("SUM(movimento.valor)", "sum")
+                         .where("movimento.tipo = '1'")
+                         .groupBy("categoria.descricao")
+                         .getRawMany();
+
+        return movimentos;
+        
+    };
+}
 export { RecuperarMovimentoPorMes }
 export { RecuperarMovimentoPorTipo }
 export { RecuperarTodos }
 export { RecuperarDetalhesMovto }
 export { RecuperarMovimentoPorId }
+export { RecuperarSaidasPorCategoria }

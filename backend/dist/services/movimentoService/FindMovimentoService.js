@@ -9,10 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RecuperarMovimentoPorId = exports.RecuperarDetalhesMovto = exports.RecuperarTodos = exports.RecuperarMovimentoPorTipo = exports.RecuperarMovimentoPorMes = void 0;
+exports.RecuperarSaidasPorCategoria = exports.RecuperarMovimentoPorId = exports.RecuperarDetalhesMovto = exports.RecuperarTodos = exports.RecuperarMovimentoPorTipo = exports.RecuperarMovimentoPorMes = void 0;
 const typeorm_1 = require("typeorm");
 const MovimentoRepositories_1 = require("../../repositories/MovimentoRepositories");
 const Enums_1 = require("../../entity/enum/Enums");
+const Categoria_1 = require("../../entity/Categoria");
 class RecuperarMovimentoPorId {
     execute(_idMovimento) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -104,3 +105,20 @@ class RecuperarDetalhesMovto {
     ;
 }
 exports.RecuperarDetalhesMovto = RecuperarDetalhesMovto;
+class RecuperarSaidasPorCategoria {
+    execute() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const movimentos = yield (0, typeorm_1.getCustomRepository)(MovimentoRepositories_1.MovimentoRepositories)
+                .createQueryBuilder("movimento")
+                .innerJoinAndSelect(Categoria_1.Categoria, "categoria", "categoria.idcategoria = movimento.idcategoria")
+                .select("categoria.descricao")
+                .addSelect("SUM(movimento.valor)", "sum")
+                .where("movimento.tipo = '1'")
+                .groupBy("categoria.descricao")
+                .getRawMany();
+            return movimentos;
+        });
+    }
+    ;
+}
+exports.RecuperarSaidasPorCategoria = RecuperarSaidasPorCategoria;

@@ -14,7 +14,7 @@ const FindCategoriaService_1 = require("../services/categoriaService/FindCategor
 class CategoriaController {
     RecuperarCategoriaPorTipo(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { tipo } = request.body;
+            const tipo = request.params.tipo;
             const recuperarCategoriaPorNome = new FindCategoriaService_1.RecuperarCategoriaPorTipo();
             const categoria = yield recuperarCategoriaPorNome.execute(tipo);
             return response.json(categoria);

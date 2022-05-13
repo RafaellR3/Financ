@@ -28,13 +28,20 @@ function DonutChart() {
             show: true
         }
     }
-    return (
-        <Chart
-            options={{ ...options, labels: chartData.labels }}
-            series={chartData.series}
-            type="donut"
-            height="240"
-        />
+    return (    
+        <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-light border-bottom shadow-sm">
+
+                <div className="container">
+                    <Chart
+                        options={{ ...options, title:{text: 'Saídas por categoria', style:{fontSize:'20px', color: 'grey'}}, labels: chartData.labels }}
+                        series={chartData.series}
+                        type="donut"
+                        height="240"
+                        title="Saídas por categoria"
+                    />     
+                </div>
+
+        </div>
     );
 }
 

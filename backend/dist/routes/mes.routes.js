@@ -6,5 +6,7 @@ const mesRouter = (0, express_1.Router)();
 const mesController = new MesController_1.MesController();
 mesRouter.post("/", mesController.handle);
 mesRouter.post("/Copiar/:id", mesController.Copiar);
+mesRouter.get("/recuperarporcodigo/:id", mesController.RecuperarPorCodigo);
 mesRouter.get("/recuperartodos", mesController.RecuperarTodos);
+mesRouter.get("/recuperarfechamentomes", mesController.RecuperarFechamentoMes);
 exports.default = mesRouter;

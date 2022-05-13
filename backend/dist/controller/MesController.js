@@ -30,11 +30,26 @@ class MesController {
             return response.json(mes);
         });
     }
+    RecuperarPorCodigo(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const idmes = request.params.id;
+            const recuperarPorCodigo = new FindMesService_1.RecuperarPorCodigo();
+            const mes = yield recuperarPorCodigo.execute(idmes);
+            return response.json(mes);
+        });
+    }
     RecuperarTodos(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             const recuperarTodos = new FindMesService_1.RecuperarTodos();
-            const usuario = yield recuperarTodos.execute();
-            return response.json(usuario);
+            const mes = yield recuperarTodos.execute();
+            return response.json(mes);
+        });
+    }
+    RecuperarFechamentoMes(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const recuperarFechamentoMes = new FindMesService_1.RecuperarFechamentoMes();
+            const mes = yield recuperarFechamentoMes.execute();
+            return response.json(mes);
         });
     }
 }

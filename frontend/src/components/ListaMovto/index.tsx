@@ -8,6 +8,7 @@ import BotaoEditarMovimento from "components/BotaoEditarMovimento";
 import EditarMovimento from "components/EditarMovimento";
 import novo from "../../assests/img/novo.png";
 import {Categoria } from "types/Categoria";
+import { Mes } from "types/Mes";
 
 interface MainProps {
     idMes: string;
@@ -19,6 +20,7 @@ const ListaMovto = ({ idMes }: MainProps) => {
         headers: {'Authorization': 'Bearer ' + localStorage.getItem("token") }
     }
 
+    const [mes, setMes] = useState<Mes>({ idmes: '', nome: ''});
     const [categoriasEntrada, setCategoriasEntrada] = useState<Categoria[]>();
     const [categoriasSaidas, setCategoriasSaidas] = useState<Categoria[]>();
     const [categoriaEntrada, setCategoriaEntrada] = useState('');
@@ -57,6 +59,13 @@ const ListaMovto = ({ idMes }: MainProps) => {
             })
             .catch((error) => {
                 window.alert(`Erro ao carregar categorias de entrada. Erro: ${error}`)})
+        
+        axios.get(`${Api}/Mes/RecuperarPorCodigo/${idMes}`, config)
+            .then((response) => {
+                setMes(response.data)
+            })
+            .catch((error) => {
+                window.alert(`Erro ao carregar. Erro: ${error}`)})
 
         axios.get(`${Api}/Categoria/RecuperarPorTipo/1`, config)
         .then((response) => {
@@ -187,15 +196,17 @@ const ListaMovto = ({ idMes }: MainProps) => {
     return (
         <>
             {AtualizarDetalhes}
-            <div className="container" >                    
-                <div className="col-lg table-striped text-center"  style={{ backgroundColor: 'rgba(50, 115, 220, 0.3)'}} >
+            <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-light border-bottom shadow-sm">
+                <div className="container">   
+                <h5  className= "text-center" style={{ backgroundColor: ' #879be9', color: 'white'}}>{mes.nome}</h5>
+                <div className="col-lg table-striped text-center"  style={{ backgroundColor: ' #879be9'}} >
                 <table className="table table-striped table-lg table-borderless">
                     <thead  className= "thead-dark" >
-                        <th className = "totais" ><h5 >Entradas</h5></th>
-                        <th className = "totais" ><h5 >Saídas</h5></th>
-                        <th className = "totais" ><h5 >Balanço</h5></th>
-                        <th className = "totais" ><h5 >Saldo atual</h5></th>
-                        <th className = "totais" ><h5 >Em aberto</h5></th>
+                        <th className = "totais"  style={{ color: 'white' }} ><h5 >Entradas</h5></th>
+                        <th className = "totais"  style={{ color: 'white' }}><h5 >Saídas</h5></th>
+                        <th className = "totais"  style={{ color: 'white' }}><h5 >Balanço</h5></th>
+                        <th className = "totais"  style={{ color: 'white' }}><h5 >Saldo atual</h5></th>
+                        <th className = "totais"  style={{ color: 'white' }}><h5 >Em aberto</h5></th>
                         <th></th>
                     </thead>
                     <tbody>
@@ -212,7 +223,7 @@ const ListaMovto = ({ idMes }: MainProps) => {
 
                     {/* ----------ENTRADAS----------------- */}
                     <div className="col-lg table-striped text-center">
-                        <h5 style={{ backgroundColor: 'rgba(50, 115, 220, 0.3)'}}>Entradas</h5>
+                        <h5 style={{ backgroundColor: ' #879be9', color: 'white' }}>Entradas</h5>
                         <table className="table table-striped table-sm text-center" >
                             <thead >
                                 <tr key={detalhes.idMes}>
@@ -266,7 +277,7 @@ const ListaMovto = ({ idMes }: MainProps) => {
                     </div>
                     {/* ----------SAIDAS----------------- */}
                     <div className="col-sm table-striped text-center">
-                        <h5 style={{ backgroundColor: 'rgba(50, 115, 220, 0.3)'}}>Saídas</h5>
+                        <h5 style={{ backgroundColor:  '#879be9', color: 'white' }}>Saídas</h5>
                         <table className="table table-striped table-sm text-center">
                             <thead >
                                 <tr key={detalhes.idMes}>
@@ -323,7 +334,7 @@ const ListaMovto = ({ idMes }: MainProps) => {
                   
                   </div>
             </div>
-                
+             </div>   
             {isModalVisible ? _editarMovimento: null}
         </>
     )

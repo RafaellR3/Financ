@@ -1,6 +1,6 @@
 import {Request, Response} from "express"
 import {Copiar, CreateMesService} from "../services/mesService/CreateMesService"
-import {RecuperarPorCodigo, RecuperarTodos} from "../services/mesService/FindMesService"
+import {RecuperarFechamentoMes, RecuperarPorCodigo, RecuperarTodos} from "../services/mesService/FindMesService"
 
 class MesController{
     async handle(request: Request, response: Response){
@@ -18,13 +18,28 @@ async Copiar(request: Request, response: Response) {
         const mes = await copiar.execute(idmes, descricao);
         return response.json(mes);
       }  
+      
+async RecuperarPorCodigo(request: Request, response: Response) {
+        const  idmes  = request.params.id;
+        const recuperarPorCodigo = new RecuperarPorCodigo();
+        const mes = await recuperarPorCodigo.execute(idmes);
+    
+        return response.json(mes);
+      }
 
 async RecuperarTodos(request: Request, response: Response) {
         const recuperarTodos = new RecuperarTodos();
-        const usuario = await recuperarTodos.execute();
+        const mes = await recuperarTodos.execute();
     
-        return response.json(usuario);
+        return response.json(mes);
       }
+
+async RecuperarFechamentoMes(request: Request, response: Response) {
+        const recuperarFechamentoMes = new RecuperarFechamentoMes();
+        const mes = await recuperarFechamentoMes.execute();
+
+        return response.json(mes);
+    }
 }
 
 export {MesController}

@@ -8,6 +8,8 @@ class Mes {
     readonly idmes: string;
     @Column()
     nome: string;
+    @Column()
+    seq: number;
 
    constructor() {
        if(!this.idmes){

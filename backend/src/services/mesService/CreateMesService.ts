@@ -32,8 +32,15 @@ class CreateMesService{
             throw new Error("Mês já existe!");
         }
         
+        const result = await getCustomRepository(MesRepositories)
+                            .createQueryBuilder("mes")
+                            .select("max(seq) +1" , "max")
+                            .getRawOne();
+
+        const seq = result.max;   
+
         const mes = mesRepository.create({
-            nome
+            nome, seq
         });
 
         await mesRepository.save(mes);
@@ -49,7 +56,7 @@ class Copiar{
         const movimentos = await movimentoRepository.find({
             where: {idmes: _idmes } 
         })
-        
+
         const createMesServico = new CreateMesService();
         const novoMes = await createMesServico.execute({nome});
 

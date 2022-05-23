@@ -27,8 +27,13 @@ class CreateMesService {
             if (mesAlreadyExists) {
                 throw new Error("Mês já existe!");
             }
+            const result = yield (0, typeorm_1.getCustomRepository)(MesRepositories_1.MesRepositories)
+                .createQueryBuilder("mes")
+                .select("max(seq) +1", "max")
+                .getRawOne();
+            const seq = result.max;
             const mes = mesRepository.create({
-                nome
+                nome, seq
             });
             yield mesRepository.save(mes);
             return mes;

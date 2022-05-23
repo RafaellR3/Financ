@@ -85,13 +85,13 @@ class RecuperarDetalhesMovto {
 
     async execute(_idMes: string) {
         const movimentoRepository = getCustomRepository(MovimentoRepositories);
-        const movimentos = await movimentoRepository.find({relations:["categoria"],  where: { idmes: _idMes }
+        const movimentos = await movimentoRepository.find({relations:["categoria"],  where: { idmes: _idMes }, order:{descricao: "ASC" }
         })
 
         const detalhes = {} as IListaDetalhes;
         detalhes.idmes = _idMes;
-        detalhes.Entradas = (await movimentos).filter(movimento => movimento.tipo === TipoMovimento.Entrada).sort((a, b) => 1 - 2)
-        detalhes.Saidas = (await movimentos).filter(movimento => movimento.tipo === Number(TipoMovimento.Saida)).sort((a, b) => 1 - 2);
+        detalhes.Entradas = (await movimentos).filter(movimento => movimento.tipo === TipoMovimento.Entrada);
+        detalhes.Saidas = (await movimentos).filter(movimento => movimento.tipo === Number(TipoMovimento.Saida));
 
         var valoresEntrada = detalhes.Entradas.map(function (movimento) {
             return movimento.valor.toString()

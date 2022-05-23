@@ -9,8 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RecuperarPorCodigo = exports.RecuperarTodos = void 0;
+exports.RecuperarFechamentoMes = exports.RecuperarPorCodigo = exports.RecuperarTodos = void 0;
 const typeorm_1 = require("typeorm");
+const Movimento_1 = require("../../entity/Movimento");
 const MesRepositories_1 = require("../../repositories/MesRepositories");
 class RecuperarTodos {
     execute() {
@@ -27,7 +28,7 @@ class RecuperarPorCodigo {
     execute(_idmes) {
         return __awaiter(this, void 0, void 0, function* () {
             const mesRepository = (0, typeorm_1.getCustomRepository)(MesRepositories_1.MesRepositories);
-            const mes = yield mesRepository.find({
+            const mes = yield mesRepository.findOne({
                 where: { idmes: _idmes }
             });
             return mes;
@@ -36,3 +37,23 @@ class RecuperarPorCodigo {
     ;
 }
 exports.RecuperarPorCodigo = RecuperarPorCodigo;
+class RecuperarFechamentoMes {
+    execute() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const dados = yield (0, typeorm_1.getCustomRepository)(MesRepositories_1.MesRepositories)
+                .createQueryBuilder("mes")
+                .innerJoinAndSelect(Movimento_1.Movimento, "movimento", "movimento.idmes = mes.idmes")
+                .select("mes.nome")
+                .addSelect("SUM(case when movimento.tipo = '0' then movimento.valor end)", "entradas")
+                .addSelect("SUM(case when movimento.tipo = '1' then movimento.valor end)", "saidas")
+                .groupBy("mes.nome")
+                .groupBy("mes.idmes")
+                .orderBy("mes.idmes", "ASC")
+                .limit(6)
+                .getRawMany();
+            return dados;
+        });
+    }
+    ;
+}
+exports.RecuperarFechamentoMes = RecuperarFechamentoMes;

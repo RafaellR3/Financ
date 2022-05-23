@@ -7,3 +7,9 @@ export interface IMes{
 export interface INovoMes{
     nome: string;
 }
+
+export interface IFechamentoMes{
+    mes_nome: string;
+    entradas: number;
+    saidas: number;
+}

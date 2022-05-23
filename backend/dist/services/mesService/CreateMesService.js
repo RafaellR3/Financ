@@ -9,9 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateMesService = void 0;
+exports.Copiar = exports.CreateMesService = void 0;
 const typeorm_1 = require("typeorm");
 const MesRepositories_1 = require("../../repositories/MesRepositories");
+const MovimentoRepositories_1 = require("../../repositories/MovimentoRepositories");
+const CreateMovimentoService_1 = require("../movimentoService/CreateMovimentoService");
 class CreateMesService {
     execute({ nome }) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -34,3 +36,29 @@ class CreateMesService {
     }
 }
 exports.CreateMesService = CreateMesService;
+class Copiar {
+    execute(_idmes, nome) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const movimentoRepository = (0, typeorm_1.getCustomRepository)(MovimentoRepositories_1.MovimentoRepositories);
+            const movimentos = yield movimentoRepository.find({
+                where: { idmes: _idmes }
+            });
+            const createMesServico = new CreateMesService();
+            const novoMes = yield createMesServico.execute({ nome });
+            for (const item of movimentos) {
+                const createMovimentoService = new CreateMovimentoService_1.CreateMovimentoService();
+                const novoMovimento = {};
+                novoMovimento.idmes = novoMes.idmes;
+                novoMovimento.descricao = item.descricao;
+                novoMovimento.valor = item.valor;
+                novoMovimento.tipo = item.tipo;
+                novoMovimento.datavencto = item.datavencto.toString();
+                novoMovimento.idcategoria = item.idcategoria;
+                const movimento = yield createMovimentoService.execute(novoMovimento);
+            }
+            return novoMes;
+        });
+    }
+    ;
+}
+exports.Copiar = Copiar;

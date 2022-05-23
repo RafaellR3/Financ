@@ -60,7 +60,7 @@ function BarChart() {
 
     const options = {
         legend: {
-            show: true
+            show: false
         },
         
         plotOptions:{
@@ -74,7 +74,8 @@ function BarChart() {
 
                 <div className="container">
                 <Chart
-                    options={{ ...options, title:{text: 'Balanço por mês', style:{fontSize:'20px', color: 'grey'}},  xaxis: chartData.labels }}
+                    options={{ ...options, title:{text: 'Balanço por mês', style:{fontSize:'20px', color: 'grey'}},  
+                    xaxis: chartData.labels , fill:{colors:['#3f2','#f02']}}}
                     series={chartData.series}
                     type="bar"
                     height="240"

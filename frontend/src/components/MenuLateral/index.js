@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import axios from "axios";
-import Autenticarusuario from 'components/AutenticarUsuario';
 import { logout } from 'services/auth';
 import { useEffect, useState } from "react";
 import { Api } from "utils/requests";
 import sair from "../../assests/img/sair.png";
 import detalhes from "../../assests/img/detalhes.png";
-import { Link, Router } from "react-router-dom";
+import { Link} from "react-router-dom";
+import Autenticarusuario from "components/AutenticarUsuario";
 
 const MenuLateral =() => {
 
@@ -28,8 +28,9 @@ const MenuLateral =() => {
 
     const onClick = () => {
         if (window.confirm(`Você tem certeza que deseja sair?`)) {
-          logout();
-        }
+            <Autenticarusuario/>
+            logout();
+        }   
     }
 
 return (

@@ -90,8 +90,8 @@ class RecuperarDetalhesMovto {
 
         const detalhes = {} as IListaDetalhes;
         detalhes.idmes = _idMes;
-        detalhes.Entradas = (await movimentos).filter(movimento => movimento.tipo === TipoMovimento.Entrada);
-        detalhes.Saidas = (await movimentos).filter(movimento => movimento.tipo === Number(TipoMovimento.Saida));
+        detalhes.Entradas = (await movimentos).filter(movimento => movimento.tipo === TipoMovimento.Entrada).sort((a, b) => 1 - 2)
+        detalhes.Saidas = (await movimentos).filter(movimento => movimento.tipo === Number(TipoMovimento.Saida)).sort((a, b) => 1 - 2);
 
         var valoresEntrada = detalhes.Entradas.map(function (movimento) {
             return movimento.valor.toString()

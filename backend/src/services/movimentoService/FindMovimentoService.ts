@@ -85,7 +85,7 @@ class RecuperarDetalhesMovto {
 
     async execute(_idMes: string) {
         const movimentoRepository = getCustomRepository(MovimentoRepositories);
-        const movimentos = await movimentoRepository.find({relations:["categoria"],  where: { idmes: _idMes }
+        const movimentos = await movimentoRepository.find({relations:["categoria"],  where: { idmes: _idMes }, order:{descricao: "DESC" }
         })
 
         const detalhes = {} as IListaDetalhes;

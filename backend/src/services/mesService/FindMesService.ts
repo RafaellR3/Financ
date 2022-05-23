@@ -1,14 +1,12 @@
 import { getCustomRepository } from "typeorm";
-import { Mes } from "../../entity/Mes";
 import { Movimento } from "../../entity/Movimento";
 import { MesRepositories } from "../../repositories/MesRepositories";
-import { MovimentoRepositories } from "../../repositories/MovimentoRepositories";
 
 class RecuperarTodos {
     async execute() {
 
         const mesRepository = getCustomRepository(MesRepositories);
-        const mes = await mesRepository.find()
+        const mes = await mesRepository.find({ order:{seq: "ASC" }})
         return mes;
     };
 }
@@ -30,11 +28,12 @@ class RecuperarFechamentoMes {
                                 .createQueryBuilder("mes")
                                 .innerJoinAndSelect(Movimento, "movimento", "movimento.idmes = mes.idmes")
                                 .select("mes.nome")
+                                .addSelect("mes.seq")
                                 .addSelect("SUM(case when movimento.tipo = '0' then movimento.valor end)", "entradas")
                                 .addSelect("SUM(case when movimento.tipo = '1' then movimento.valor end)", "saidas")
                                 .groupBy("mes.nome")
                                 .groupBy("mes.idmes")
-                                .orderBy("mes.idmes", "ASC")
+                                .orderBy("mes.seq", "ASC")
                                 .limit(6)
                                 .getRawMany();
         return dados;

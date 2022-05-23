@@ -1,5 +1,4 @@
 import { getCustomRepository } from "typeorm";
-import { Categoria } from "../../entity/Categoria";
 import { TipoMovimento } from "../../entity/enum/Enums";
 import { MovimentoRepositories } from "../../repositories/MovimentoRepositories";
 

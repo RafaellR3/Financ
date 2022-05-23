@@ -27,6 +27,10 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Mes.prototype, "nome", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Mes.prototype, "seq", void 0);
 Mes = __decorate([
     (0, typeorm_1.Entity)("mes"),
     __metadata("design:paramtypes", [])

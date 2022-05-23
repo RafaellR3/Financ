@@ -65,7 +65,7 @@ function BarChart() {
         
         plotOptions:{
             bar:{
-                horizontal: true,
+                horizontal: false,
             }
         }
     }
